@@ -1,15 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <v-btn
-      width="300"
-      class="ml-auto"
-      rounded
-      @click="$router.push('/authorization')">
-      <v-icon class="mr-2">
-        mdi-fingerprint
-      </v-icon>
-      Авториция</v-btn>
+      <headerTop/>
       <v-content>
         <router-view />
       </v-content>
@@ -18,9 +10,13 @@
 </template>
 
 <script>
+import headerTop from './components/header-top.vue'
+
 export default {
   name: 'App',
-
+  components: {
+    headerTop
+  },
   data: () => ({
     //
   }),

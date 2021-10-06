@@ -1,15 +1,16 @@
 <template>
-  <router-view>Авторизация</router-view>
+  <div>
+    
+  </div>
 </template>
 
 <script>
-import avtorizatsiyaForm from '../components/authorization-form.vue';
 
 export default {
   name: 'Home',
 
   components: {
-    avtorizatsiyaForm,
+
   },
 };
 </script>
