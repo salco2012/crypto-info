@@ -18,15 +18,15 @@
                       label="Email"
                       name="Email"
                       prepend-icon="mdi-email"
-                      type="text"
+                      type="email"
                       color="purple accent-2"
                     />
 
                     <v-text-field
                       label="Пароль"
-                      name="Пароль"
+                      name="password"
                       prepend-icon="mdi-lock"
-                      type="text"
+                      type="password"
                       color="purple accent-2"
                     />
 
@@ -103,7 +103,7 @@
                       label="Email"
                       name="Email"
                       prepend-icon="mdi-email"
-                      type="text"
+                      type="email"
                       color="purple accent-2"
                     />
 

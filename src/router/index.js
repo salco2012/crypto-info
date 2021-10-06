@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import authorizationForm from '../views/authorization-form.vue';
 import registrationForm from '../views/registration-form.vue';
 import pageNotFound from '../views/page-not-found.vue';
+import userAccount from '../views/user-account.vue';
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/registration-form',
     name: 'registrationForm',
     component: registrationForm,
+  },
+  {
+    path: '/user-account',
+    name: 'userAccount',
+    component: userAccount,
   },
   {
     path: '/*',
