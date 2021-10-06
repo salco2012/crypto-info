@@ -3,8 +3,8 @@
     <v-row align="center" justify="center">
       <v-col cols="12" md="8">
         <v-card elevation="8">
-          <v-window v-model="step">
-            <v-window-item :value="1">
+          <v-window>
+            <v-window-item>
               <v-row>
                 <v-col
                   cols="12"
@@ -92,3 +92,5 @@
     </v-row>
   </v-container>
 </template>
+
+<style scoped></style>
