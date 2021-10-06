@@ -1,21 +1,24 @@
 <template>
   <div id="app">
     <v-app>
-      <headerTop/>
+      <headerTop />
       <v-content>
         <router-view />
       </v-content>
+      <footerBottom />
     </v-app>
   </div>
 </template>
 
 <script>
-import headerTop from './components/header-top.vue'
+import headerTop from './components/header-top.vue';
+import footerBottom from './components/footer-bottom.vue';
 
 export default {
   name: 'App',
   components: {
-    headerTop
+    headerTop,
+    footerBottom,
   },
   data: () => ({
     //
@@ -23,4 +26,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#app {
+  background-color: #ab47bc;
+}
+</style>
