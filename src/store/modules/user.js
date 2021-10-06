@@ -1,4 +1,8 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 
 export default {
   state: {
@@ -11,6 +15,12 @@ export default {
     SET_USER(state, payload) {
       state.user.isAuthenticated = true;
       state.user.userID = payload;
+    },
+    UNSET_USER(state) {
+      state.user = {
+        isAuthenticated: false,
+        userID: null,
+      };
     },
   },
   actions: {
@@ -32,12 +42,15 @@ export default {
           // ...
         })
         .catch((error) => {
-          console.log(error);
-          console.log(error.code);
-          console.log(error.message);
-          // const errorCode = error.code;
-          // const errorMessage = error.message;
+          commit('SET_ERROR', error.code); // обрабатываем ошибку, записываем ее в state.error
         });
+    },
+    stateChanged({ commit }, payload) {
+      if (payload) {
+        commit('SET_USER', payload.uid);
+      } else {
+        commit('UNSET_USER');
+      }
     },
   },
   getters: {

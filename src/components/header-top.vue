@@ -24,6 +24,7 @@
         rounded
         :to="item.route"
         class="ml-2"
+        @click="cleanError"
       >
         {{ item.title }}
         <v-icon right v-html="item.icon"></v-icon> </v-btn
@@ -37,21 +38,28 @@
         rounded
         :to="item.route"
         class="ml-2"
+        @click="exitUserAccount($event)"
       >
         {{ item.title }}
         <v-icon right v-html="item.icon"></v-icon>
       </v-btn>
     </template>
-
-    <!-- <v-btn @click="$router.push('/')" class="ml-2" light rounded
-      >Выйти
-      <v-icon right>mdi-account-circle</v-icon>
-    </v-btn> -->
   </v-app-bar>
 </template>
 
 <script>
 export default {
+  methods: {
+    cleanError() {
+      // Вызываю мутации которая очищает ошибки в хранилище.
+      return this.$store.commit('CLEAN_ERROR');
+    },
+    exitUserAccount(event) {
+      if (event.target.outerText.toLowerCase() === 'выйти') {
+        return this.$store.commit('UNSET_USER');
+      }
+    },
+  },
   computed: {
     isUserAuthenticated() {
       return this.$store.getters.isUserAuthenticated;

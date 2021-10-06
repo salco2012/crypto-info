@@ -14,6 +14,16 @@
                   </v-card-text>
 
                   <v-form class="pa-4" @submit.prevent>
+
+                    <v-alert
+                      v-if='firebaseError'
+                      dense
+                      border="left"
+                      type="warning"
+                    >
+                      {{ firebaseError }}
+                    </v-alert>
+
                     <v-text-field
                       label="Email"
                       name="Email"
@@ -140,9 +150,6 @@ export default {
       step: 1,
     };
   },
-  // methods: {
-  //   authorization() {},
-  // },
   computed: {
     firebaseError() {
       return this.$store.getters.getError;
@@ -150,6 +157,7 @@ export default {
     isUserAuthenticated() {
       return this.$store.getters.isUserAuthenticated;
     },
+    
   },
   watch: {
     isUserAuthenticated(value) {
