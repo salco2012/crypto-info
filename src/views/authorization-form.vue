@@ -20,6 +20,7 @@
                       prepend-icon="mdi-email"
                       type="email"
                       color="purple accent-2"
+                      v-model.trim="authorizationForm.email"
                     />
 
                     <v-text-field
@@ -28,10 +29,12 @@
                       prepend-icon="mdi-lock"
                       type="password"
                       color="purple accent-2"
+                      v-model.trim="authorizationForm.password"
                     />
 
                     <div class="text-center mt-2 mb-6">
                       <v-btn
+                        @click.prevent="authorization"
                         rounded
                         class="purple accent-5 white--text"
                         type="submit"
@@ -130,8 +133,38 @@
 export default {
   data() {
     return {
+      authorizationForm: {
+        email: null,
+        password: null,
+      },
       step: 1,
     };
+  },
+  // methods: {
+  //   authorization() {},
+  // },
+  computed: {
+    firebaseError() {
+      return this.$store.getters.getError;
+    },
+    isUserAuthenticated() {
+      return this.$store.getters.isUserAuthenticated;
+    },
+  },
+  watch: {
+    isUserAuthenticated(value) {
+      if (value === true) {
+        this.$router.push('/user-account');
+      }
+    },
+  },
+  methods: {
+    authorization() {
+      this.$store.dispatch('authorization', {
+        email: this.authorizationForm.email,
+        password: this.authorizationForm.password,
+      });
+    },
   },
 };
 </script>

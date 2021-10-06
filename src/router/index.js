@@ -5,6 +5,8 @@ import authorizationForm from '../views/authorization-form.vue';
 import registrationForm from '../views/registration-form.vue';
 import pageNotFound from '../views/page-not-found.vue';
 import userAccount from '../views/user-account.vue';
+import actualNews from '../views/actual-news.vue';
+import сryptocurrencyRate from '../views/сryptocurrency-rate.vue';
 
 Vue.use(VueRouter);
 
@@ -28,6 +30,16 @@ const routes = [
     path: '/user-account',
     name: 'userAccount',
     component: userAccount,
+  },
+  {
+    path: '/actual-news',
+    name: 'actualNews',
+    component: actualNews,
+  },
+  {
+    path: '/сryptocurrency-rate',
+    name: 'сryptocurrencyRate',
+    component: сryptocurrencyRate,
   },
   {
     path: '/*',

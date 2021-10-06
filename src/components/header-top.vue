@@ -16,23 +16,32 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn
-      class="mr-3"
-      @click="$router.push('/registration-form')"
-      light
-      rounded
-      >Регистрация
-      <v-icon right class="far fa-address-card"></v-icon>
-    </v-btn>
+    <template v-if="isUserAuthenticated === false">
+      <v-btn
+        v-for="(item, index) in menuItemsHome"
+        :key="`menuItemsHome${index}`"
+        light
+        rounded
+        :to="item.route"
+        class="ml-2"
+      >
+        {{ item.title }}
+        <v-icon right v-html="item.icon"></v-icon> </v-btn
+    ></template>
 
-    <v-btn
-      
-      @click="$router.push('/authorization')"
-      light
-      rounded
-      >Авторизация
-      <v-icon right>mdi-fingerprint</v-icon>
-    </v-btn>
+    <template v-if="isUserAuthenticated === true">
+      <v-btn
+        v-for="(item, index) in menuItemsUserAccount"
+        :key="`menuItemsUserAccount${index}`"
+        light
+        rounded
+        :to="item.route"
+        class="ml-2"
+      >
+        {{ item.title }}
+        <v-icon right v-html="item.icon"></v-icon>
+      </v-btn>
+    </template>
 
     <!-- <v-btn @click="$router.push('/')" class="ml-2" light rounded
       >Выйти
@@ -43,11 +52,44 @@
 
 <script>
 export default {
-  // computed: {
-  //   isUserAuthenticated() {
-  //     return this.$store.getters.isUserAuthenticated;
-  //   },
-  // },
+  computed: {
+    isUserAuthenticated() {
+      return this.$store.getters.isUserAuthenticated;
+    },
+    menuItemsHome() {
+      return [
+        {
+          icon: 'far fa-address-card',
+          title: 'Регистрация',
+          route: '/registration-form',
+        },
+        {
+          icon: 'mdi-fingerprint',
+          title: 'Авторизация',
+          route: '/authorization',
+        },
+      ];
+    },
+    menuItemsUserAccount() {
+      return [
+        {
+          icon: 'mdi-bitcoin',
+          title: 'Курс криптовалют',
+          route: '/сryptocurrency-rate',
+        },
+        {
+          icon: 'mdi-newspaper-variant-multiple',
+          title: 'Актуальные новости',
+          route: '/actual-news',
+        },
+        {
+          icon: 'mdi-account-circle',
+          title: 'Выйти',
+          route: '/',
+        },
+      ];
+    },
+  },
 };
 </script>
 

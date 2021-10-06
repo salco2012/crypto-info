@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 export default {
   state: {
@@ -21,6 +21,22 @@ export default {
         })
         .catch((error) => {
           commit('SET_ERROR', error.code); // обрабатываем ошибку, записываем ее в state.error
+        });
+    },
+    authorization({ commit }, payload) {
+      signInWithEmailAndPassword(getAuth(), payload.email, payload.password)
+        .then((userCredential) => {
+          commit('SET_USER', user.user.uid);
+          console.log(userCredential);
+          const user = userCredential.user;
+          // ...
+        })
+        .catch((error) => {
+          console.log(error);
+          console.log(error.code);
+          console.log(error.message);
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
         });
     },
   },
