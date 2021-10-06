@@ -1,18 +1,17 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <router-view>Авторизация</router-view>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import avtorizatsiyaForm from '../components/authorization-form.vue';
 
 export default {
   name: 'Home',
+
   components: {
-    HelloWorld
-  }
-}
+    avtorizatsiyaForm,
+  },
+};
 </script>
+
+<style scoped></style>
