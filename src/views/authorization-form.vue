@@ -8,7 +8,7 @@
                 <v-row>
                   <v-col cols="12" md="8">
                     <v-card-text>
-                      <h1 class="mb-2 mt-4 text-center purple--text">
+                      <h1 class="mb-4 mt-6 text-center">
                         Авторизация
                       </h1>
                     </v-card-text>
@@ -30,7 +30,7 @@
                         color="purple accent-2"
                       />
 
-                      <div class="text-center mb-4">
+                      <div class="text-center mt-2 mb-6">
                         <v-btn
                           rounded
                           class="purple accent-5 white--text"

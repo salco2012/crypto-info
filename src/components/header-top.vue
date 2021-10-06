@@ -16,6 +16,11 @@
 
     <v-spacer></v-spacer>
 
+    <v-btn class="mr-3" @click="$router.push('/registration-form')" light rounded
+      >Регистрация
+      <v-icon right class="far fa-address-card"></v-icon>
+    </v-btn>
+
     <v-btn @click="$router.push('/authorization')" light rounded
       >Авторизация
       <v-icon right>mdi-fingerprint</v-icon>

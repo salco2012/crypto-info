@@ -1,9 +1,10 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import authorizationForm from '../components/authorization-form.vue';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
+import authorizationForm from '../views/authorization-form.vue';
+import registrationForm from '../views/registration-form.vue';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -16,12 +17,17 @@ const routes = [
     name: 'authorizationForm',
     component: authorizationForm,
   },
+  {
+    path: '/registration-form',
+    name: 'registrationForm',
+    component: registrationForm,
+  },
 ];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
