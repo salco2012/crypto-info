@@ -4,19 +4,19 @@
 
       <headerTop />
 
-      <v-content>
+      <v-main>
         <router-view></router-view>
-      </v-content>
+      </v-main>
 
       <footerBottom />
-      
+
     </v-app>
   </div>
 </template>
 
 <script>
-import headerTop from './components/header-top.vue';
-import footerBottom from './components/footer-bottom.vue';
+import headerTop from '@/components/header-top.vue';
+import footerBottom from '@/components/footer-bottom.vue';
 
 export default {
   name: 'App',
