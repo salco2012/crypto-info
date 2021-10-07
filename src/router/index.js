@@ -46,7 +46,7 @@ const routes = [
     beforeEnter: AuthGuard, // вызываем функцию проверки авторизации, на хуке before
   },
   {
-    path: '/*',
+    path: '/*', // При неизвестных путях, перенаправляем на страницу 404
     name: 'pageNotFound',
     component: pageNotFound,
   },
@@ -66,5 +66,7 @@ function AuthGuard(from, to, next) {
     next('/authorization');
   }
 }
+
+ 
 
 export default router;

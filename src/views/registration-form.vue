@@ -41,12 +41,15 @@
                     </h1>
                   </v-card-text>
 
-                  <v-form class="pa-4" @submit.prevent>
-
-                    <v-alert v-if="firebaseError" dense border="left" type="warning">
-                      {{firebaseError}}
+                  <v-form class="pa-4" @submit.prevent="onSubmirForm">
+                    <v-alert
+                      v-if="firebaseError"
+                      dense
+                      border="left"
+                      type="warning"
+                    >
+                      {{ firebaseError }}
                     </v-alert>
-
 
                     <v-text-field
                       label="Имя"
@@ -55,7 +58,14 @@
                       type="text"
                       color="purple accent-2"
                       v-model.trim="registrationForm.name"
+                      :error="!$v.registrationForm.name.alphaRus"
                     />
+                    <p
+                      class="myError"
+                      v-if="!$v.registrationForm.name.alphaRus"
+                    >
+                      Только кириллица
+                    </p>
 
                     <v-text-field
                       label="Email"
@@ -64,7 +74,11 @@
                       type="email"
                       color="purple accent-2"
                       v-model.trim="registrationForm.email"
+                      :error="!$v.registrationForm.email.email"
                     />
+                    <p class="myError" v-if="!$v.registrationForm.email.email">
+                      Это не похоже на email
+                    </p>
 
                     <v-text-field
                       label="Пароль"
@@ -73,7 +87,14 @@
                       type="password"
                       color="purple accent-2"
                       v-model.trim="registrationForm.password"
+                      :error="!$v.registrationForm.password.minLength"
                     />
+                    <p
+                      class="myError"
+                      v-if="!$v.registrationForm.password.minLength"
+                    >
+                     Пароль не может быть меньше 6 символов
+                    </p>
 
                     <v-text-field
                       label="Повторите пароль"
@@ -82,7 +103,16 @@
                       type="password"
                       color="purple accent-2"
                       v-model.trim="registrationForm.repeatPassword"
+                      :error="!$v.registrationForm.repeatPassword.sameAsPassword && $v.registrationForm.password.required && $v.registrationForm.repeatPassword.required"
                     />
+
+                    <p
+                      class="myError"
+                      v-if="!$v.registrationForm.repeatPassword.sameAsPassword && $v.registrationForm.password.required && $v.registrationForm.repeatPassword.required"
+                    >
+                     Пароль не совпадает с указанным выше
+                    </p>
+
 
                     <div class="text-center mt-2 mb-6">
                       <v-btn
@@ -90,6 +120,7 @@
                         class="purple accent-5 white--text"
                         type="submit"
                         @click.prevent="registration"
+                        :disabled="$v.registrationForm.$invalid"
                         >Зарегистрироваться</v-btn
                       >
                     </div>
@@ -105,6 +136,9 @@
 </template>
 
 <script>
+import { required, email, minLength, helpers, sameAs } from 'vuelidate/lib/validators';
+const alphaRus = helpers.regex('alphaRus', /[А-ЯЁа-яё]/);
+
 export default {
   data() {
     return {
@@ -116,20 +150,39 @@ export default {
       },
     };
   },
+  validations: {
+    registrationForm: {
+      name: {
+        alphaRus,
+      },
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required,
+        minLength: minLength(6),
+      },
+      repeatPassword: {
+        required,
+        sameAsPassword: sameAs('password'),
+      },
+    },
+  },
   computed: {
     firebaseError() {
-      return this.$store.getters.getError
+      return this.$store.getters.getError;
     },
     isUserAuthenticated() {
-      return this.$store.getters.isUserAuthenticated
-    }
+      return this.$store.getters.isUserAuthenticated;
+    },
   },
   watch: {
     isUserAuthenticated(value) {
       if (value === true) {
-        this.$router.push('/user-account')
+        this.$router.push('/user-account');
       }
-    }
+    },
   },
   methods: {
     registration() {
@@ -138,8 +191,16 @@ export default {
         password: this.registrationForm.password,
       });
     },
+    onSubmirForm() {
+      this.$v.registrationForm.$touch();
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.myError {
+  color: red;
+  margin-top: -15px;
+}
+</style>

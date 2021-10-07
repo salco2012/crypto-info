@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import Vuelidate from 'vuelidate';
 import App from './App.vue';
 import router from './router';
 import store from './store/index';
@@ -10,6 +11,8 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+Vue.use(Vuelidate);
 
 // Модальное окно
 Vue.use(VuetifyConfirm, {
