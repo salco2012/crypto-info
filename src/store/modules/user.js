@@ -2,7 +2,9 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
+import firebase from '../../config/firebase';
 
 export default {
   state: {
@@ -26,21 +28,14 @@ export default {
   actions: {
     registration({ commit }, payload) {
       createUserWithEmailAndPassword(getAuth(), payload.email, payload.password)
-        .then((user) => {
-          commit('SET_USER', user.user.uid);
-        })
+        .then(() => {})
         .catch((error) => {
           commit('SET_ERROR', error.code); // обрабатываем ошибку, записываем ее в state.error
         });
     },
     authorization({ commit }, payload) {
       signInWithEmailAndPassword(getAuth(), payload.email, payload.password)
-        .then((userCredential) => {
-          commit('SET_USER', user.user.uid);
-          console.log(userCredential);
-          const user = userCredential.user;
-          // ...
-        })
+        .then(() => {})
         .catch((error) => {
           commit('SET_ERROR', error.code); // обрабатываем ошибку, записываем ее в state.error
         });
@@ -51,6 +46,10 @@ export default {
       } else {
         commit('UNSET_USER');
       }
+    },
+    exitUserAccount() { // Отвечает за выход из аккаунта
+      const auth = getAuth();
+      signOut(auth);
     },
   },
   getters: {

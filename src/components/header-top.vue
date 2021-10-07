@@ -24,7 +24,7 @@
         rounded
         :to="item.route"
         class="ml-2"
-        @click="cleanError"
+        @click="clearError"
       >
         {{ item.title }}
         <v-icon right v-html="item.icon"></v-icon> </v-btn
@@ -50,13 +50,18 @@
 <script>
 export default {
   methods: {
-    cleanError() {
+    clearError() {
       // Вызываю мутации которая очищает ошибки в хранилище.
-      return this.$store.commit('CLEAN_ERROR');
+      return this.$store.commit('CLEAR_ERROR');
     },
     exitUserAccount(event) {
       if (event.target.outerText.toLowerCase() === 'выйти') {
-        return this.$store.commit('UNSET_USER');
+        this.$confirm('Может еще побудете с нами?').then((res) => {
+          if (res) {
+            this.$router.push('/'); 
+            return this.$store.dispatch('exitUserAccount');
+          }
+        });
       }
     },
   },
@@ -93,7 +98,7 @@ export default {
         {
           icon: 'mdi-account-circle',
           title: 'Выйти',
-          route: '/',
+          route: null,
         },
       ];
     },

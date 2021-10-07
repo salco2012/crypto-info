@@ -3,12 +3,25 @@ import App from './App.vue';
 import router from './router';
 import store from './store/index';
 import vuetify from './plugins/vuetify';
+import VuetifyConfirm from 'vuetify-confirm';
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from './config/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Модальное окно
+Vue.use(VuetifyConfirm, {
+  vuetify,
+  buttonFalseText: 'Остаюсь',
+  buttonTrueText: 'Выйти',
+  color: 'warning',
+  icon: null,
+  title: 'Вы действительно хотите выйти?',
+  width: 400,
+  property: '$confirm',
+});
 
 new Vue({
   store,
