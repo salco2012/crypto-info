@@ -14,9 +14,8 @@
                   </v-card-text>
 
                   <v-form class="pa-4" @submit.prevent>
-
                     <v-alert
-                      v-if='firebaseError'
+                      v-if="firebaseError"
                       dense
                       border="left"
                       type="warning"
@@ -31,7 +30,9 @@
                       type="email"
                       color="purple accent-2"
                       v-model.trim="authorizationForm.email"
+                      :error="!$v.authorizationForm.email.email"
                     />
+                    <p class="myError" v-if="!$v.authorizationForm.email.email">Это не похоже на email</p>
 
                     <v-text-field
                       label="Пароль"
@@ -40,7 +41,9 @@
                       type="password"
                       color="purple accent-2"
                       v-model.trim="authorizationForm.password"
+                      :error="!$v.authorizationForm.password.minLength"
                     />
+                    <p class="myError" v-if="!$v.authorizationForm.password.minLength">Не менее 6 символов</p>
 
                     <div class="text-center mt-2 mb-6">
                       <v-btn
@@ -48,6 +51,7 @@
                         rounded
                         class="purple accent-5 white--text"
                         type="submit"
+                        :disabled="$v.authorizationForm.$invalid"
                         >Войти в кабинет</v-btn
                       >
                     </div>
@@ -140,6 +144,8 @@
 </template>
 
 <script>
+import { required, email, minLength } from 'vuelidate/lib/validators';
+
 export default {
   data() {
     return {
@@ -150,6 +156,18 @@ export default {
       step: 1,
     };
   },
+  validations: {
+    authorizationForm: {
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required,
+        minLength: minLength(6),
+      },
+    },
+  },
   computed: {
     firebaseError() {
       return this.$store.getters.getError;
@@ -157,7 +175,6 @@ export default {
     isUserAuthenticated() {
       return this.$store.getters.isUserAuthenticated;
     },
-    
   },
   watch: {
     isUserAuthenticated(value) {
@@ -176,3 +193,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.myError {
+  color: red;
+  margin-top: -15px;
+}
+</style>
