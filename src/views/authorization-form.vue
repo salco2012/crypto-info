@@ -13,7 +13,7 @@
                     </h1>
                   </v-card-text>
 
-                  <v-form class="pa-4" @submit.prevent>
+                  <v-form class="pa-4" @submit.prevent="onSubmitForm">
                     <v-alert
                       v-if="firebaseError"
                       dense
@@ -32,7 +32,9 @@
                       v-model.trim="authorizationForm.email"
                       :error="!$v.authorizationForm.email.email"
                     />
-                    <p class="myError" v-if="!$v.authorizationForm.email.email">Это не похоже на email</p>
+                    <p class="myError" v-if="!$v.authorizationForm.email.email">
+                      Это не похоже на email
+                    </p>
 
                     <v-text-field
                       label="Пароль"
@@ -43,7 +45,12 @@
                       v-model.trim="authorizationForm.password"
                       :error="!$v.authorizationForm.password.minLength"
                     />
-                    <p class="myError" v-if="!$v.authorizationForm.password.minLength">Не менее 6 символов</p>
+                    <p
+                      class="myError"
+                      v-if="!$v.authorizationForm.password.minLength"
+                    >
+                      Не менее 6 символов
+                    </p>
 
                     <div class="text-center mt-2 mb-6">
                       <v-btn
@@ -122,13 +129,20 @@
                       prepend-icon="mdi-email"
                       type="email"
                       color="purple accent-2"
+                      v-model.trim="passwordRecovery.email"
+                      :error="!$v.passwordRecovery.email.email"
                     />
+
+                    <p class="myError" v-if="!$v.passwordRecovery.email.email">
+                      Это не похоже на email
+                    </p>
 
                     <div class="text-center mt-2 mb-6">
                       <v-btn
                         rounded
                         class="purple accent-5 white--text"
                         type="submit"
+                        :disabled="$v.passwordRecovery.$invalid"
                         >Получить новый пароль</v-btn
                       >
                     </div>
@@ -153,6 +167,9 @@ export default {
         email: null,
         password: null,
       },
+      passwordRecovery: {
+        email: null,
+      },
       step: 1,
     };
   },
@@ -165,6 +182,12 @@ export default {
       password: {
         required,
         minLength: minLength(6),
+      },
+    },
+    passwordRecovery: {
+      email: {
+        required,
+        email,
       },
     },
   },
@@ -189,6 +212,9 @@ export default {
         email: this.authorizationForm.email,
         password: this.authorizationForm.password,
       });
+    },
+    onSubmitForm() {
+      this.$v.authorizationForm.$touch();
     },
   },
 };

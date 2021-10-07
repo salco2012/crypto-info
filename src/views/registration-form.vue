@@ -41,7 +41,7 @@
                     </h1>
                   </v-card-text>
 
-                  <v-form class="pa-4" @submit.prevent="onSubmirForm">
+                  <v-form class="pa-4" @submit.prevent="onSubmitForm">
                     <v-alert
                       v-if="firebaseError"
                       dense
@@ -191,7 +191,7 @@ export default {
         password: this.registrationForm.password,
       });
     },
-    onSubmirForm() {
+    onSubmitForm() {
       this.$v.registrationForm.$touch();
     },
   },
