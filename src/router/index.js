@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import authorizationForm from '../views/authorization-form.vue';
-import registrationForm from '../views/registration-form.vue';
-import pageNotFound from '../views/page-not-found.vue';
-import userAccount from '../views/user-account.vue';
-import actualNews from '../views/actual-news.vue';
-import сryptocurrencyRate from '../views/сryptocurrency-rate.vue';
-import store from '../store'
+import authorizationForm from '../views/AuthorizationForm.vue';
+import registrationForm from '../views/RegistrationForm.vue';
+import pageNotFound from '../views/PageNotFound.vue';
+import userAccount from '../views/UserAccount.vue';
+import actualNews from '../views/ActualNews.vue';
+import cryptocurrencyRate from '../views/CryptocurrencyRate.vue';
+import store from '../store';
 
 Vue.use(VueRouter);
 
@@ -42,7 +42,7 @@ const routes = [
   {
     path: '/сryptocurrency-rate',
     name: 'сryptocurrencyRate',
-    component: сryptocurrencyRate,
+    component: cryptocurrencyRate,
     beforeEnter: AuthGuard, // вызываем функцию проверки авторизации, на хуке before
   },
   {
@@ -61,12 +61,10 @@ const router = new VueRouter({
 // Функция которая проверяет авторизован ли пользователь, если нет, перекидывает его на страницу авторизации.
 function AuthGuard(from, to, next) {
   if (store.getters.isUserAuthenticated) {
-    next()
+    next();
   } else {
     next('/authorization');
   }
 }
-
- 
 
 export default router;

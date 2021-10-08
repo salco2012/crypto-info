@@ -80,10 +80,10 @@
                   <v-card-text class="white--text text-center mb-auto">
                     <h2 class="text-center mb-4">Забыли пароль?</h2>
                     <p class="text-center">
-                      Не переживайте, мы вышлем новый!
+                      Вы можете установить новый!
                     </p>
                     <v-btn @click="step = 2" rounded outlined dark>
-                      Восстановить
+                      Сбросить пароль
                     </v-btn>
                   </v-card-text>
                 </v-col>
@@ -143,7 +143,8 @@
                         class="purple accent-5 white--text"
                         type="submit"
                         :disabled="$v.passwordRecovery.$invalid"
-                        >Получить новый пароль</v-btn
+                        @click="resetPassword"
+                        >Сбросить пароль</v-btn
                       >
                     </div>
                   </v-form>
@@ -216,6 +217,9 @@ export default {
     onSubmitForm() {
       this.$v.authorizationForm.$touch();
     },
+    resetPassword() {
+      window.location.reload()
+    }
   },
 };
 </script>

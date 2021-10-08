@@ -10,7 +10,7 @@ import firebaseConfig from './config/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 Vue.use(Vuelidate);
 
@@ -31,7 +31,7 @@ new Vue({
   router,
   vuetify,
   render: (h) => h(App),
-  created() {
+  created: async function() {
     let vm = this;
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {

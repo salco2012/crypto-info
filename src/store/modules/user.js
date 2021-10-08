@@ -4,7 +4,6 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import firebase from '../../config/firebase';
 
 export default {
   state: {
@@ -12,6 +11,7 @@ export default {
       isAuthenticated: false, // флаг который отвечает за аутентификацию
       userID: null, // сохраняем уникальное id пользователя
     },
+    error: null, 
   },
   mutations: {
     SET_USER(state, payload) {
@@ -23,6 +23,12 @@ export default {
         isAuthenticated: false,
         userID: null,
       };
+    },
+    SET_ERROR(state, payload) {
+      state.error = payload;
+    },
+    CLEAR_ERROR(state) {
+      state.error = null;
     },
   },
   actions: {
@@ -47,12 +53,14 @@ export default {
         commit('UNSET_USER');
       }
     },
-    exitUserAccount() { // Отвечает за выход из аккаунта
+    exitUserAccount() {
+      // Отвечает за выход из аккаунта
       const auth = getAuth();
       signOut(auth);
     },
   },
   getters: {
     isUserAuthenticated: (state) => state.user.isAuthenticated, // Получаем значение аутентификации
+    getError: (state) => state.error, // Получаем значение ошибки
   },
 };
