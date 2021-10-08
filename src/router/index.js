@@ -31,19 +31,19 @@ const routes = [
     path: '/user-account',
     name: 'userAccount',
     component: userAccount,
-    beforeEnter: AuthGuard, // вызываем функцию проверки авторизации, на хуке before
+    // beforeEnter: AuthGuard, // вызываем функцию проверки авторизации, на хуке before
   },
   {
     path: '/actual-news',
     name: 'actualNews',
     component: actualNews,
-    beforeEnter: AuthGuard, // вызываем функцию проверки авторизации, на хуке before
+    // beforeEnter: AuthGuard, // вызываем функцию проверки авторизации, на хуке before
   },
   {
     path: '/сryptocurrency-rate',
-    name: 'сryptocurrencyRate',
+    name: 'cryptocurrencyRate',
     component: cryptocurrencyRate,
-    beforeEnter: AuthGuard, // вызываем функцию проверки авторизации, на хуке before
+    // beforeEnter: AuthGuard, // вызываем функцию проверки авторизации, на хуке before
   },
   {
     path: '/*', // При неизвестных путях, перенаправляем на страницу 404
@@ -59,12 +59,12 @@ const router = new VueRouter({
 });
 
 // Функция которая проверяет авторизован ли пользователь, если нет, перекидывает его на страницу авторизации.
-function AuthGuard(from, to, next) {
-  if (store.getters.isUserAuthenticated) {
-    next();
-  } else {
-    next('/authorization');
-  }
-}
+// function AuthGuard(from, to, next) {
+//   if (store.getters.isUserAuthenticated) {
+//     next();
+//   } else {
+//     next('/authorization');
+//   }
+// }
 
 export default router;

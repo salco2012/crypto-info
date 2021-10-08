@@ -1,15 +1,14 @@
 <template>
   <div id="app">
     <v-app>
-
       <headerTop />
 
       <v-main>
         <router-view></router-view>
       </v-main>
 
+      
       <footerBottom />
-
     </v-app>
   </div>
 </template>
@@ -25,7 +24,7 @@ export default {
     footerBottom,
   },
   data: () => ({
-    //
+  
   }),
 };
 </script>
