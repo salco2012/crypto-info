@@ -2,17 +2,10 @@ export default {
   state: {
     priceArchive: [],
     nameTickerAdd: null,
+    tickersCards: [],
     currentClickTicker: null,
-    newTicker: {
-      name: null,
-      price: 0,
-    },
-    tickersCards: [{ name: 'DEMO1', price: 15 }],
   },
   mutations: {
-    UPDATE_PRICE_ARHIVE(state, payload) {
-      state.priceArchive.push(payload);
-    },
     UPDATE_NAME_TICKER_ADD(state, payload) {
       state.nameTickerAdd = payload;
     },
@@ -22,19 +15,31 @@ export default {
     DELETE_TICKER_CARD(state, payload) {
       state.tickersCards = state.tickersCards.filter((t) => t !== payload);
       state.currentClickTicker = null;
-    }
-    // UPDATE_NEW_TICKER(state, payload) {
-    //   state.newTicker = payload;
+    },
+    SET_TICKERS_CARDS(state, payload) {
+      state.tickersCards.push(payload);
+    },
+    CARD_ARHICE_UPDATE_PRICE(state, payload) {
+      let result = (state.tickersCards.find(
+        (ticker) => ticker.name === state.nameTickerAdd
+      ).price = payload);
+      state.priceArchive.push(result);
+    },
+    CURRENT_CLIENT_TICKER_iS_NULL(state) {
+      state.currentClickTicker = null;
+    },
+    // SET_PRICE_ARHIVE_EMPTY(state) {
+    //   state.
     // },
   },
   actions: {
-    getApiСryptoPrice({ commit }) {
+    getApiСryptoPrice({ commit }, cryptoName) {
       setInterval(async () => {
         const response = await fetch(
-          `https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
+          `https://min-api.cryptocompare.com/data/price?fsym=${cryptoName}&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
         );
         const result = await response.json();
-        commit('UPDATE_PRICE_ARHIVE', result.USD);
+        commit('CARD_ARHICE_UPDATE_PRICE', result.USD);
       }, 5000);
     },
   },
@@ -48,5 +53,8 @@ export default {
     getCurrentClickTicker(state) {
       return state.currentClickTicker;
     },
+    getNameTickerAdd(state) {
+      return state.nameTickerAdd;
+    }
   },
 };

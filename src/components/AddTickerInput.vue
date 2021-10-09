@@ -1,7 +1,7 @@
 <template>
   <v-row class="pt-10 pl-12">
     <v-col cols="2" class="pa-0">
-      <v-text-field dark label="Например ZCash" v-model.trim="ticker" />
+      <v-text-field dark label="Например ZCash" v-model.trim="ticker" @keydown.enter="addTicker"/>
     </v-col>
     <v-col>
       <v-btn dark color="green" @click="addTicker">
@@ -23,9 +23,15 @@ export default {
   },
   methods: {
     addTicker() {
-      this.$store.dispatch('getApiСryptoPrice')
-      this.$store.commit('UPDATE_NAME_TICKER_ADD', this.ticker);
-      this.ticker = '';
+      if (this.ticker) {
+        this.$store.dispatch('getApiСryptoPrice', this.ticker);
+        this.$store.commit('UPDATE_NAME_TICKER_ADD', this.ticker);
+        this.$store.commit('SET_TICKERS_CARDS', {
+          name: this.ticker,
+          price: '-',
+        });
+        this.ticker = '';
+      }
     },
   },
 };
