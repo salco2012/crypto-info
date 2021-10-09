@@ -1,11 +1,31 @@
 export default {
   state: {
     priceArchive: [],
+    nameTickerAdd: null,
+    currentClickTicker: null,
+    newTicker: {
+      name: null,
+      price: 0,
+    },
+    tickersCards: [{ name: 'DEMO1', price: 15 }],
   },
   mutations: {
     UPDATE_PRICE_ARHIVE(state, payload) {
       state.priceArchive.push(payload);
+    },
+    UPDATE_NAME_TICKER_ADD(state, payload) {
+      state.nameTickerAdd = payload;
+    },
+    SET_CURRENT_CLIENT_TICKER(state, payload) {
+      state.currentClickTicker = payload;
+    },
+    DELETE_TICKER_CARD(state, payload) {
+      state.tickersCards = state.tickersCards.filter((t) => t !== payload);
+      state.currentClickTicker = null;
     }
+    // UPDATE_NEW_TICKER(state, payload) {
+    //   state.newTicker = payload;
+    // },
   },
   actions: {
     getApiСryptoPrice({ commit }) {
@@ -21,6 +41,12 @@ export default {
   getters: {
     getPriceArchive(state) {
       return state.priceArchive;
+    },
+    getTickersCards(state) {
+      return state.tickersCards;
+    },
+    getCurrentClickTicker(state) {
+      return state.currentClickTicker;
     },
   },
 };

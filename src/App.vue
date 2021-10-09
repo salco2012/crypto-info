@@ -7,7 +7,6 @@
         <router-view></router-view>
       </v-main>
 
-      
       <footerBottom />
     </v-app>
   </div>
@@ -23,9 +22,7 @@ export default {
     headerTop,
     footerBottom,
   },
-  data: () => ({
-  
-  }),
+  data: () => ({}),
 };
 </script>
 
