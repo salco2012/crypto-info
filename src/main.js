@@ -7,7 +7,6 @@ import vuetify from './plugins/vuetify';
 import VuetifyConfirm from 'vuetify-confirm';
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from './config/firebase';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 // Initialize Firebase
 initializeApp(firebaseConfig);
@@ -31,11 +30,4 @@ new Vue({
   router,
   vuetify,
   render: (h) => h(App),
-  created: async function() {
-    let vm = this;
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      vm.$store.dispatch('stateChanged', user);
-    });
-  },
 }).$mount('#app');

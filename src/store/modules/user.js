@@ -11,18 +11,12 @@ export default {
       isAuthenticated: false, // флаг который отвечает за аутентификацию
       userID: null, // сохраняем уникальное id пользователя
     },
-    error: null, 
+    error: null,
   },
   mutations: {
     SET_USER(state, payload) {
       state.user.isAuthenticated = true;
       state.user.userID = payload;
-    },
-    UNSET_USER(state) {
-      state.user = {
-        isAuthenticated: false,
-        userID: null,
-      };
     },
     SET_ERROR(state, payload) {
       state.error = payload;
@@ -34,29 +28,28 @@ export default {
   actions: {
     registration({ commit }, payload) {
       createUserWithEmailAndPassword(getAuth(), payload.email, payload.password)
-        .then(() => {})
+        .then((user) => {
+          commit('SET_USER', user.uid);
+        })
         .catch((error) => {
           commit('SET_ERROR', error.code); // обрабатываем ошибку, записываем ее в state.error
         });
     },
     authorization({ commit }, payload) {
       signInWithEmailAndPassword(getAuth(), payload.email, payload.password)
-        .then(() => {})
+        .then((user) => {
+          commit('SET_USER', user.uid);
+        })
         .catch((error) => {
           commit('SET_ERROR', error.code); // обрабатываем ошибку, записываем ее в state.error
         });
-    },
-    stateChanged({ commit }, payload) {
-      if (payload) {
-        commit('SET_USER', payload.uid);
-      } else {
-        commit('UNSET_USER');
-      }
     },
     exitUserAccount() {
       // Отвечает за выход из аккаунта
       const auth = getAuth();
       signOut(auth);
+      sessionStorage.clear();
+      document.location.reload(true);
     },
   },
   getters: {

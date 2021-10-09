@@ -23,6 +23,7 @@ export default {
   },
   methods: {
     addTicker() {
+              this.$store.commit('SET_PRICE_ARHIVE_EMPTY')
       if (this.ticker) {
         this.$store.dispatch('getApiСryptoPrice', this.ticker);
         this.$store.commit('UPDATE_NAME_TICKER_ADD', this.ticker);

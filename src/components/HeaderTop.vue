@@ -14,6 +14,7 @@
       </router-link>
     </v-toolbar-title>
 
+
     <v-spacer></v-spacer>
 
     <template v-if="isUserAuthenticated === false">
@@ -48,6 +49,7 @@
 </template>
 
 <script>
+
 export default {
   methods: {
     clearError() {
@@ -58,7 +60,7 @@ export default {
       if (event.target.outerText.toLowerCase() === 'выйти') {
         this.$confirm('Может еще побудете с нами?').then((res) => {
           if (res) {
-            this.$router.push('/'); 
+            this.$router.push('/');
             return this.$store.dispatch('exitUserAccount');
           }
         });
@@ -88,7 +90,7 @@ export default {
         {
           icon: 'mdi-bitcoin',
           title: 'Курс криптовалют',
-          route: '/сryptocurrency-rate',
+          route: '/cryptocurrency-rate',
         },
         {
           icon: 'mdi-newspaper-variant-multiple',

@@ -7,7 +7,7 @@
       :key="index"
     >
       <v-card
-        @click="setCurrentTicker(ticker)"
+        @click="selectTicker(ticker)"
         :class="{
           'border-card': currentClickTicker === ticker,
         }"
@@ -19,7 +19,7 @@
           {{ ticker.price }}
         </v-card-title>
         <v-card-actions class="justify-center pb-3">
-          <v-btn color="red" dark small @click="deleteTickersCard(ticker)">
+          <v-btn color="red" dark small @click.stop="deleteTickersCard(ticker)">
             <span style="font-size: 16px; color: white;">
               <i class="far fa-trash-alt mr-1"></i>
             </span>
@@ -42,8 +42,9 @@ export default {
     },
   },
   methods: {
-    setCurrentTicker(ticker) {
+    selectTicker(ticker) {
       this.$store.commit('SET_CURRENT_CLIENT_TICKER', ticker);
+      this.$store.commit('SET_PRICE_ARHIVE_EMPTY')
     },
     deleteTickersCard(ticker) {
       this.$store.commit('DELETE_TICKER_CARD', ticker)

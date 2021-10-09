@@ -19,27 +19,29 @@ export default {
     SET_TICKERS_CARDS(state, payload) {
       state.tickersCards.push(payload);
     },
-    CARD_ARHICE_UPDATE_PRICE(state, payload) {
+    CARD_ARHIVE_UPDATE_PRICE(state, payload) {
       let result = (state.tickersCards.find(
-        (ticker) => ticker.name === state.nameTickerAdd
+        (ticker) => ticker.name === state.currentClickTicker.name
       ).price = payload);
       state.priceArchive.push(result);
     },
     CURRENT_CLIENT_TICKER_iS_NULL(state) {
       state.currentClickTicker = null;
     },
-    // SET_PRICE_ARHIVE_EMPTY(state) {
-    //   state.
-    // },
+    SET_PRICE_ARHIVE_EMPTY(state) {
+      state.priceArchive = [];
+    },
   },
   actions: {
-    getApiСryptoPrice({ commit }, cryptoName) {
+    getApiСryptoPrice({ commit, state }, cryptoName) {
       setInterval(async () => {
         const response = await fetch(
           `https://min-api.cryptocompare.com/data/price?fsym=${cryptoName}&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
         );
         const result = await response.json();
-        commit('CARD_ARHICE_UPDATE_PRICE', result.USD);
+        if (state.currentClickTicker?.name === cryptoName) {
+          commit('CARD_ARHIVE_UPDATE_PRICE', result.USD);
+        }
       }, 5000);
     },
   },
@@ -55,6 +57,6 @@ export default {
     },
     getNameTickerAdd(state) {
       return state.nameTickerAdd;
-    }
+    },
   },
 };

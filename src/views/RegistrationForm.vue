@@ -93,7 +93,7 @@
                       class="myError"
                       v-if="!$v.registrationForm.password.minLength"
                     >
-                     Пароль не может быть меньше 6 символов
+                      Пароль не может быть меньше 6 символов
                     </p>
 
                     <v-text-field
@@ -103,16 +103,23 @@
                       type="password"
                       color="purple accent-2"
                       v-model.trim="registrationForm.repeatPassword"
-                      :error="!$v.registrationForm.repeatPassword.sameAsPassword && $v.registrationForm.password.required && $v.registrationForm.repeatPassword.required"
+                      :error="
+                        !$v.registrationForm.repeatPassword.sameAsPassword &&
+                          $v.registrationForm.password.required &&
+                          $v.registrationForm.repeatPassword.required
+                      "
                     />
 
                     <p
                       class="myError"
-                      v-if="!$v.registrationForm.repeatPassword.sameAsPassword && $v.registrationForm.password.required && $v.registrationForm.repeatPassword.required"
+                      v-if="
+                        !$v.registrationForm.repeatPassword.sameAsPassword &&
+                          $v.registrationForm.password.required &&
+                          $v.registrationForm.repeatPassword.required
+                      "
                     >
-                     Пароль не совпадает с указанным выше
+                      Пароль не совпадает с указанным выше
                     </p>
-
 
                     <div class="text-center mt-2 mb-6">
                       <v-btn
@@ -136,7 +143,13 @@
 </template>
 
 <script>
-import { required, email, minLength, helpers, sameAs } from 'vuelidate/lib/validators';
+import {
+  required,
+  email,
+  minLength,
+  helpers,
+  sameAs,
+} from 'vuelidate/lib/validators';
 const alphaRus = helpers.regex('alphaRus', /[А-ЯЁа-яё]/);
 
 export default {
