@@ -1,17 +1,22 @@
 <template>
   <v-container class="fill-height">
-    <h1 class="white--text text-center mb-6 mt-4">
+    <h1 class="titleText mb-6 mt-4">
       Актуальные финансовые новости:
     </h1>
     <v-row>
-      <v-expansion-panels class="d-flex justify-start">
-        <v-col md="2" xs="6" v-for="(news, index) in allNews" :key="index">
+      <v-expansion-panels class="d-flex justify-center">
+        <v-col
+          md="2"
+          xs="6"
+          v-for="(news, index) in newsCurretnPage"
+          :key="index"
+        >
           <v-expansion-panel class="mb-4">
             <v-img height="250" :src="news.imageurl"></v-img>
-            <v-expansion-panel-header>
+            <v-expansion-panel-header class="expansion-title pa-1 text-center">
               <h4>{{ news.title }}</h4>
             </v-expansion-panel-header>
-            <v-expansion-panel-content>
+            <v-expansion-panel-content class="expansion-body">
               <div class="pb-4">
                 {{ news.body }}
               </div>
@@ -30,6 +35,14 @@
         </v-col>
       </v-expansion-panels>
     </v-row>
+    <div class="pagination" v-if="allNews">
+      <v-pagination
+        v-model="pageNumber"
+        :length="pages"
+        total-visible="8"
+        circle
+      ></v-pagination>
+    </div>
   </v-container>
 </template>
 
@@ -38,6 +51,9 @@ export default {
   data() {
     return {
       allNews: [],
+      newsPerPage: 12,
+      pageNumber: 1,
+      showCardBody: false,
     };
   },
   methods: {
@@ -57,8 +73,37 @@ export default {
     },
   },
   mounted() {
-    console.log(this.allNews);
     this.getApiNewsData();
+  },
+  computed: {
+    pages() {
+      return Math.ceil(this.allNews.length / this.newsPerPage);
+    },
+    newsCurretnPage() {
+      let from = (this.pageNumber - 1) * this.newsPerPage;
+      let to = from + this.newsPerPage;
+      return this.allNews.slice(from, to);
+    },
   },
 };
 </script>
+
+<style scoped>
+.titleText {
+  font-family: 'Russo One', sans-serif;
+  font-weight: normal;
+  color: #490c53;
+  margin: 0 auto;
+  text-transform: uppercase;
+}
+.pagination {
+  margin: 0 auto;
+  cursor: pointer;
+}
+.expansion-title {
+  font-weight: normal;
+  text-transform: uppercase;
+  min-height: 130px;
+  line-height: 24px;
+}
+</style>

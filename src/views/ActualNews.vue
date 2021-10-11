@@ -8,10 +8,8 @@
 import NewsCards from '../components/NewsCards.vue';
 
 export default {
-   components: {
-      NewsCards
-   }
+  components: {
+    NewsCards,
+  },
 };
 </script>
-
-<style lang="scss" scoped></style>

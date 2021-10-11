@@ -1,5 +1,5 @@
 <template>
-  <v-row class="ma-5">
+  <v-row class="mt-5">
     <v-col
       md="2"
       xs="6"
