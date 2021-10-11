@@ -1,15 +1,17 @@
 <template>
-   <div>
-      Актуальные новости
-   </div>
+  <div>
+    <NewsCards />
+  </div>
 </template>
 
 <script>
-   export default {
-      
+import NewsCards from '../components/NewsCards.vue';
+
+export default {
+   components: {
+      NewsCards
    }
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
