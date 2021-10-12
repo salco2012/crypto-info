@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="pl-0">
     <div class="wrapper-sparkline" v-if="getTickersCards.length">
       <h3 v-if="getCurrentClickTicker" class="title-charh">
         {{ getCurrentClickTicker.name.toUpperCase() }}
