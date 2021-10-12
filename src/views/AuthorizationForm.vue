@@ -71,7 +71,7 @@
                   class="purple accent-5 d-flex flex-column"
                 >
                   <div class="ml-auto mb-auto">
-                    <v-btn small icon>
+                    <v-btn small icon @click="$router.push('/')">
                       <v-icon small color="white">
                         mdi-close-thick
                       </v-icon>
@@ -98,7 +98,7 @@
                   class="purple accent-5 d-flex flex-column"
                 >
                   <div class="ml-auto mb-auto">
-                    <v-btn small icon>
+                    <v-btn small icon @click="cleanErrorResetPassword">
                       <v-icon small color="white">
                         mdi-close-thick
                       </v-icon>
@@ -123,6 +123,24 @@
                   </v-card-text>
 
                   <v-form class="pa-4" @submit.prevent>
+                    <v-alert
+                      v-if="errorResetPassword"
+                      dense
+                      border="left"
+                      type="warning"
+                    >
+                      {{ errorResetPassword }}
+                    </v-alert>
+                    <v-alert
+                      v-if="successfulResetPassword && !errorResetPassword"
+                      dense
+                      border="left"
+                      type="success"
+                    >
+                      Ссылка на восстановление пароля была отправлена на Вашу
+                      почту
+                    </v-alert>
+
                     <v-text-field
                       label="Email"
                       name="Email"
@@ -199,6 +217,12 @@ export default {
     isUserAuthenticated() {
       return this.$store.getters.isUserAuthenticated;
     },
+    errorResetPassword() {
+      return this.$store.getters.errorResetPassword;
+    },
+    successfulResetPassword() {
+      return this.$store.getters.successfulResetPassword;
+    },
   },
   watch: {
     isUserAuthenticated(value) {
@@ -218,8 +242,16 @@ export default {
       this.$v.authorizationForm.$touch();
     },
     resetPassword() {
-      window.location.reload()
-    }
+      this.$store.dispatch('resetPassword', this.passwordRecovery.email);
+      setTimeout(() => {
+        sessionStorage.clear();
+        document.location.reload(true);
+      }, 5000);
+    },
+    cleanErrorResetPassword() {
+      this.$router.push('/');
+      this.$store.commit('CLEAR_ERROR_RESET_PASSWORD');
+    },
   },
 };
 </script>

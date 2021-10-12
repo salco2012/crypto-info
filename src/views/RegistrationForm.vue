@@ -12,7 +12,7 @@
                   class="purple accent-5 d-flex flex-column"
                 >
                   <div class="ml-auto mb-auto">
-                    <v-btn small icon>
+                    <v-btn small icon @click="$router.push('/')">
                       <v-icon small color="white">
                         mdi-close-thick
                       </v-icon>

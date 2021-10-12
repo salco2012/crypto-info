@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 
 export default {
@@ -12,6 +13,10 @@ export default {
       userID: null, // сохраняем уникальное id пользователя
     },
     error: null,
+    resetPassword: {
+      errorResetPassword: null,
+      successfulResetPassword: false,
+    },
   },
   mutations: {
     SET_USER(state, payload) {
@@ -23,6 +28,21 @@ export default {
     },
     CLEAR_ERROR(state) {
       state.error = null;
+    },
+    CLEAR_ERROR_RESET_PASSWORD(state) {
+      state.errorResetPassword = null;
+    },
+    RESET_PASSWORD_ERROR(state, payload) {
+      state.resetPassword = {
+        errorResetPassword: payload,
+        successfulResetPassword: false,
+      };
+    },
+    RESET_PASSWORD_SUCCESSFUL(state) {
+      state.resetPassword = {
+        errorResetPassword: null,
+        successfulResetPassword: true,
+      };
     },
   },
   actions: {
@@ -51,9 +71,25 @@ export default {
       sessionStorage.clear();
       document.location.reload(true);
     },
+    resetPassword({ commit }, email) {
+      const auth = getAuth();
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          commit('RESET_PASSWORD_SUCCESSFUL');
+        })
+        .catch((error) => {
+          commit('RESET_PASSWORD_ERROR', error.code);
+        });
+    },
   },
   getters: {
     isUserAuthenticated: (state) => state.user.isAuthenticated, // Получаем значение аутентификации
     getError: (state) => state.error, // Получаем значение ошибки
+    errorResetPassword(state) {
+      return state.resetPassword.errorResetPassword;
+    },
+    successfulResetPassword(state) {
+      return state.resetPassword.successfulResetPassword;
+    }
   },
 };
