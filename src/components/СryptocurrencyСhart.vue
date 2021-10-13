@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pl-0">
+  <v-container fluid class="pl-0 mt-8">
     <div class="wrapper-sparkline" v-if="getCurrentClickTicker">
       <h3 v-if="getCurrentClickTicker" class="title-charh">
         {{ getCurrentClickTicker.name.toUpperCase() }}
