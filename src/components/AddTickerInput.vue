@@ -41,8 +41,8 @@ export default {
   data() {
     return {
       ticker: null,
-      allCtyptoSymbol: [],
-      repeatStatusSymbol: false,
+      allCtyptoSymbol: [], // Сюда пушим список актуальных монеток с сервера
+      repeatStatusSymbol: false, //Флаг который сообщает нам добавляли ли мы данный тикер ранее или нет.
     };
   },
   methods: {
@@ -51,6 +51,7 @@ export default {
         this.ticker = event.target.innerText;
       }
 
+      // При остутствии Тикера, запускаем мутацию, которая сбрасывает архив цен для графика
       if (!this.ticker) {
         this.$store.commit('SET_PRICE_ARHIVE_EMPTY');
       }
@@ -67,15 +68,20 @@ export default {
         this.ticker = '';
         this.repeatStatusSymbol = false;
       }
+
+      sessionStorage.setItem(
+        'cryptonomicon-list',
+        JSON.stringify(this.getTickersCards)
+      );
     },
     async getApiCtyptoSymbol() {
       try {
         const response = await fetch(
-          'https://min-api.cryptocompare.com/data/all/coinlist?summary=true'
+          `https://min-api.cryptocompare.com/data/blockchain/list?api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
         );
         const result = await response.json();
         Object.keys(result.Data).map((key) => {
-          this.allCtyptoSymbol.push(result.Data[key].Symbol);
+          this.allCtyptoSymbol.push(result.Data[key].symbol);
         });
       } catch (error) {
         console.error(error);
@@ -83,18 +89,32 @@ export default {
     },
   },
   created() {
+    // Загружаем список доступных монеток с сервера
     this.getApiCtyptoSymbol();
+
+    //Сохраняем тикеры в SessionStotage и при их наличии диспатчим
+    const tickersSessionStorage = sessionStorage.getItem('cryptonomicon-list');
+    if (tickersSessionStorage) {
+      let ticker = JSON.parse(tickersSessionStorage);
+      ticker.map((el) => {
+        this.$store.dispatch('getApiСryptoPrice', el);
+      });
+    }
   },
   computed: {
+    // Предлагаем пользователю 4 подходящих тикера для возможности быстрого выбора.
     searchTicker() {
       return this.allCtyptoSymbol
         .filter((el) => {
-          return el.toLowerCase().includes(this.ticker.toLowerCase());
+          return el.toUpperCase().includes(this.ticker.toUpperCase());
         })
         .slice(0, 4);
     },
     getTickersCardsName() {
       return this.$store.getters.getTickersCards.map((el) => el.name);
+    },
+    getTickersCards() {
+      return this.$store.getters.getTickersCards;
     },
   },
 };

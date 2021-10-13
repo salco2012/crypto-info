@@ -14,12 +14,10 @@ export default {
       state.tickersCards.push(payload);
     },
     SET_PRICE_CARDS(state, { currentTicker, result }) {
-      if (state.currentClickTicker) {
-        state.tickersCards.find(
-          (ticker) => ticker.name === currentTicker.name
-        ).price =
-          result.USD > 1 ? +result.USD.toFixed(2) : +result.USD.toPrecision(2);
-      }
+      state.tickersCards.find(
+        (ticker) => ticker.name === currentTicker.name
+      ).price =
+        result.USD > 1 ? +result.USD.toFixed(2) : +result.USD.toPrecision(2);
     },
     DELETE_TICKER_CARD(state, payload) {
       state.tickersCards = state.tickersCards.filter((t) => t !== payload);

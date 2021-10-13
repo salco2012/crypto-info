@@ -11,7 +11,7 @@ export default new Vuex.Store({
   modules: {
     userAuthenticated,
     cryptocurrencyRate,
-    informationCard
+    informationCard,
   },
   plugins: [
     createPersistedState({

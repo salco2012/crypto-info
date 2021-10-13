@@ -44,7 +44,7 @@ export default {
   methods: {
     selectTicker(ticker) {
       this.$store.commit('SET_CURRENT_CLIENT_TICKER', ticker);
-      this.$store.commit('SET_PRICE_ARHIVE_EMPTY')
+      this.$store.commit('SET_PRICE_ARHIVE_EMPTY') // При выборе нового тикера, запускаем мутацию, которая сбрасывает архив цен для графика.
     },
     deleteTickersCard(ticker) {
       this.$store.commit('DELETE_TICKER_CARD', ticker)

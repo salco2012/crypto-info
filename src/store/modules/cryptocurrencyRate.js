@@ -21,12 +21,16 @@ export default {
           );
           const result = await response.json();
 
-          commit('SET_PRICE_CARDS', {
-            currentTicker,
-            result,
-          });
-
-          if (rootState.currentClickTicker?.name === currentTicker.name) {
+          if (result.USD) {
+            commit('SET_PRICE_CARDS', {
+              currentTicker,
+              result,
+            });
+          }
+          if (
+            rootState.informationCard.currentClickTicker?.name ===
+            currentTicker.name
+          ) {
             commit('CARD_ARHIVE_UPDATE_PRICE', result.USD);
           }
         }, 5000);
