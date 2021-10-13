@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="pl-0">
-    <div class="wrapper-sparkline">
+    <div class="wrapper-sparkline" v-if="getCurrentClickTicker">
       <h3 v-if="getCurrentClickTicker" class="title-charh">
         {{ getCurrentClickTicker.name.toUpperCase() }}
       </h3>
@@ -13,6 +13,7 @@
         :smooth="8"
         :value="getPriceArchive"
       ></v-sparkline>
+      <span class="close-chart" @click="resetCurrentTicker">&#10006;</span>
     </div>
   </v-container>
 </template>
@@ -26,10 +27,12 @@ export default {
     getCurrentClickTicker() {
       return this.$store.getters.getCurrentClickTicker;
     },
-    getTickersCards() {
-      return this.$store.getters.getTickersCards;
-    },
   },
+  methods: {
+    resetCurrentTicker() {
+     this.$store.commit('RESET_CURRENT_CLICK_TICKER')
+    }
+  }
 };
 </script>
 
@@ -46,7 +49,12 @@ export default {
   position: absolute;
   top: 5px;
   left: 10px;
-  text-indent: 0px;
 }
 
+.close-chart {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
 </style>
