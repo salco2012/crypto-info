@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="pl-0">
-    <div class="wrapper-sparkline" v-if="getTickersCards.length">
+    <div class="wrapper-sparkline">
       <h3 v-if="getCurrentClickTicker" class="title-charh">
         {{ getCurrentClickTicker.name.toUpperCase() }}
       </h3>
@@ -30,11 +30,6 @@ export default {
       return this.$store.getters.getTickersCards;
     },
   },
-  methods: {
-    clientTickerIsNull() {
-      this.$store.commit('CURRENT_CLIENT_TICKER_iS_NULL');
-    },
-  },
 };
 </script>
 
@@ -53,4 +48,5 @@ export default {
   left: 10px;
   text-indent: 0px;
 }
+
 </style>

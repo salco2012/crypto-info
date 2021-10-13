@@ -12,7 +12,8 @@ export default new Vuex.Store({
     cryptocurrencyRate,
   },
   plugins: [
-    createPersistedState({ 
+    createPersistedState({
+      paths: ['userAuthenticated', 'cryptocurrencyRate'],
       storage: window.sessionStorage,
     }),
   ],

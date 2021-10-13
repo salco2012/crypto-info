@@ -57,14 +57,13 @@ export default {
 
       if (this.getTickersCardsName.includes(this.ticker.toUpperCase())) {
         this.repeatStatusSymbol = true;
-        return
+        return;
       } else {
-        this.$store.dispatch('getApiСryptoPrice', this.ticker);
-        this.$store.commit('UPDATE_NAME_TICKER_ADD', this.ticker);
-        this.$store.commit('SET_TICKERS_CARDS', {
+        this.$store.dispatch('getApiСryptoPrice', {
           name: this.ticker.toUpperCase(),
           price: '-',
         });
+
         this.ticker = '';
         this.repeatStatusSymbol = false;
       }
