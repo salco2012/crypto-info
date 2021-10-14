@@ -11,14 +11,14 @@
           v-for="(news, index) in newsCurretnPage"
           :key="index"
         >
-          <v-expansion-panel class="mb-4" v-model="test">
+          <v-expansion-panel class="mb-4 expansion-panel">
             <v-img height="250" :src="news.imageurl"></v-img>
             <v-expansion-panel-header class="expansion-title pa-1 text-center">
               <h4>{{ news.title }}</h4>
             </v-expansion-panel-header>
             <v-expansion-panel-content class="expansion-body">
               <div class="pb-4">
-                {{ news.body }}
+                {{ normalizeNewsText(news.body) }}
               </div>
               <hr />
               <div class="pt-2">
@@ -41,7 +41,6 @@
         :length="pages"
         total-visible="8"
         circle
-        @click="resetTest"
       ></v-pagination>
     </div>
   </v-container>
@@ -73,7 +72,9 @@ export default {
           console.error(error);
         });
     },
-
+    normalizeNewsText(text) {
+      return text.replace(/(\[?&#.\d+;\]?)/g, '');
+    },
     nullifyАutoСlose() {
       this.autoСlose = [];
     },
@@ -83,7 +84,7 @@ export default {
   },
   computed: {
     pages() {
-      return Math.ceil(this.allNews.length / this.newsPerPage);
+      return Math.floor(this.allNews.length / this.newsPerPage);
     },
     newsCurretnPage() {
       this.nullifyАutoСlose();
@@ -108,9 +109,16 @@ export default {
   cursor: pointer;
 }
 .expansion-title {
+  align-items: center;
   font-weight: normal;
   text-transform: uppercase;
-  min-height: 130px;
+  min-height: 150px;
   line-height: 24px;
+  overflow: hidden;
+}
+.expansion-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 </style>
