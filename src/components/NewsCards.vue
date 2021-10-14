@@ -4,14 +4,14 @@
       Актуальные финансовые новости:
     </h1>
     <v-row>
-      <v-expansion-panels class="d-flex justify-center">
+      <v-expansion-panels class="d-flex justify-center" v-model="autoСlose">
         <v-col
           md="2"
           xs="6"
           v-for="(news, index) in newsCurretnPage"
           :key="index"
         >
-          <v-expansion-panel class="mb-4">
+          <v-expansion-panel class="mb-4" v-model="test">
             <v-img height="250" :src="news.imageurl"></v-img>
             <v-expansion-panel-header class="expansion-title pa-1 text-center">
               <h4>{{ news.title }}</h4>
@@ -35,12 +35,13 @@
         </v-col>
       </v-expansion-panels>
     </v-row>
-    <div class="pagination" v-if="allNews">
+    <div class="pagination" v-if="allNews.length">
       <v-pagination
         v-model="pageNumber"
         :length="pages"
         total-visible="8"
         circle
+        @click="resetTest"
       ></v-pagination>
     </div>
   </v-container>
@@ -54,6 +55,7 @@ export default {
       newsPerPage: 12,
       pageNumber: 1,
       showCardBody: false,
+      autoСlose: [],
     };
   },
   methods: {
@@ -71,6 +73,10 @@ export default {
           console.error(error);
         });
     },
+
+    nullifyАutoСlose() {
+      this.autoСlose = [];
+    },
   },
   mounted() {
     this.getApiNewsData();
@@ -80,6 +86,7 @@ export default {
       return Math.ceil(this.allNews.length / this.newsPerPage);
     },
     newsCurretnPage() {
+      this.nullifyАutoСlose();
       let from = (this.pageNumber - 1) * this.newsPerPage;
       let to = from + this.newsPerPage;
       return this.allNews.slice(from, to);
