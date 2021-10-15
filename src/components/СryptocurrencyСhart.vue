@@ -34,6 +34,11 @@ export default {
       return this.$store.getters.getTickersCards;
     },
   },
+  methods: {
+    resetCurrentTicker() {
+      this.$store.commit('RESET_CURRENT_CLICK_TICKER');
+    },
+  },
 };
 </script>
 
