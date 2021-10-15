@@ -30,9 +30,9 @@ export default {
   },
   methods: {
     resetCurrentTicker() {
-     this.$store.commit('RESET_CURRENT_CLICK_TICKER')
-    }
-  }
+      this.$store.commit('RESET_CURRENT_CLICK_TICKER');
+    },
+  },
 };
 </script>
 

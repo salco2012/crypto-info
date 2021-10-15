@@ -14,7 +14,6 @@
       </router-link>
     </v-toolbar-title>
 
-
     <v-spacer></v-spacer>
 
     <template v-if="isUserAuthenticated === false">
@@ -49,7 +48,6 @@
 </template>
 
 <script>
-
 export default {
   methods: {
     clearError() {
