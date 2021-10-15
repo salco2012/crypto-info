@@ -4,9 +4,6 @@ export default {
     currentClickTicker: null,
   },
   mutations: {
-    RESET_CURRENT_CLICK_TICKER(state) {
-      state.currentClickTicker = null;
-    },
     SET_CURRENT_CLIENT_TICKER(state, payload) {
       state.currentClickTicker = payload;
     },
@@ -19,8 +16,12 @@ export default {
       ).price =
         result.USD > 1 ? +result.USD.toFixed(2) : +result.USD.toPrecision(2);
     },
+    RESET_CURRENT_CLICK_TICKER(state) {
+      state.currentClickTicker = null;
+    },
     DELETE_TICKER_CARD(state, payload) {
       state.tickersCards = state.tickersCards.filter((t) => t !== payload);
+      state.currentClickTicker = null;
     },
   },
   actions: {},

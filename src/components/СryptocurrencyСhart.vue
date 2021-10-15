@@ -1,6 +1,9 @@
 <template>
   <v-container fluid class="pl-0 mt-8">
-    <div class="wrapper-sparkline" v-if="getCurrentClickTicker">
+    <div
+      class="wrapper-sparkline"
+      v-if="getTickersCards.length && getCurrentClickTicker"
+    >
       <h3 v-if="getCurrentClickTicker" class="title-charh">
         {{ getCurrentClickTicker.name.toUpperCase() }}
       </h3>
@@ -27,10 +30,8 @@ export default {
     getCurrentClickTicker() {
       return this.$store.getters.getCurrentClickTicker;
     },
-  },
-  methods: {
-    resetCurrentTicker() {
-      this.$store.commit('RESET_CURRENT_CLICK_TICKER');
+    getTickersCards() {
+      return this.$store.getters.getTickersCards;
     },
   },
 };
@@ -43,6 +44,7 @@ export default {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.514);
   overflow: hidden;
   position: relative;
+  padding-top: 30px;
 }
 
 .title-charh {

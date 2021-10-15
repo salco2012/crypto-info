@@ -96,7 +96,6 @@ export default {
     const tickersSessionStorage = sessionStorage.getItem('cryptonomicon-list');
     if (tickersSessionStorage) {
       let ticker = JSON.parse(tickersSessionStorage);
-      console.log(ticker);
       ticker.map((el) => {
         this.getTickersCards.map((item) => {
           if (el.name !== item.name && el.name !== el.name) {
