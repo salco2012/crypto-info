@@ -91,24 +91,17 @@ export default {
   created() {
     // Загружаем список доступных монеток с сервера
     this.getApiCtyptoSymbol();
-
     //Сохраняем тикеры в SessionStotage и при их наличии диспатчим
     const tickersSessionStorage = sessionStorage.getItem('cryptonomicon-list');
+
     if (tickersSessionStorage) {
-      let ticker = JSON.parse(tickersSessionStorage);
+      let tickers = JSON.parse(tickersSessionStorage);
 
-      // ticker.map((el) => {
-      //   this.$store.dispatch('getApiСryptoPrice', el);
-      // });
-
-      ticker.map((el) => {
-        console.log(el);
-        this.getTickersCards.map((item) => {
-          if (el.name !== item.name && el.name !== el.name) {
-            this.$store.dispatch('getApiСryptoPrice', el);
-          }
-        });
-      });
+      if (this.getTickersCards.length === 0) {
+        for (let ticker in tickers) {
+          this.$store.dispatch('getApiСryptoPrice', tickers[ticker]);
+        }
+      }
     }
   },
   computed: {

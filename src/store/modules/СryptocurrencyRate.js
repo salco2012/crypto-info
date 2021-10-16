@@ -46,9 +46,6 @@ export default {
 
       //Возвращаем отфильтрованные карточки
       state.tickersCards = state.tickersCards.filter((t) => t !== payload);
-
-      //Ставим currentClickTicker в null для того, чтобы сбросить график
-      state.currentClickTicker = null;
     },
   },
   actions: {

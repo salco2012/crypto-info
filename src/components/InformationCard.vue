@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-row class="mt-5">
       <v-col
         md="2"
@@ -45,7 +45,7 @@
         ></v-pagination>
       </div>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -86,7 +86,8 @@ export default {
 
 <style scoped>
 .border-card {
-  border: 3px solid rgb(0, 0, 0);
+  box-sizing: border-box;
+  border: solid 3px black;
 }
 
 .pagination {
