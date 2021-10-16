@@ -74,6 +74,7 @@ export default {
         JSON.stringify(this.getTickersCards)
       );
     },
+
     async getApiCtyptoSymbol() {
       try {
         const response = await fetch(
