@@ -7,6 +7,8 @@ import pageNotFound from '../views/PageNotFound.vue';
 import userAccount from '../views/UserAccount.vue';
 import actualNews from '../views/ActualNews.vue';
 import cryptocurrencyRate from '../views/CryptocurrencyRate.vue';
+import miningData from '../views/MiningData.vue';
+
 import store from '../store/index';
 
 Vue.use(VueRouter);
@@ -33,19 +35,25 @@ export default new VueRouter({
       path: '/user-account',
       name: 'userAccount',
       component: userAccount,
-      beforeEnter: AuthGuard
+      beforeEnter: AuthGuard,
     },
     {
       path: '/actual-news',
       name: 'actualNews',
       component: actualNews,
-      beforeEnter: AuthGuard
+      beforeEnter: AuthGuard,
+    },
+    {
+      path: '/mining',
+      name: 'miningData',
+      component: miningData,
+      beforeEnter: AuthGuard,
     },
     {
       path: '/cryptocurrency-rate',
       name: 'cryptocurrencyRate',
       component: cryptocurrencyRate,
-      beforeEnter: AuthGuard
+      beforeEnter: AuthGuard,
     },
     {
       path: '/*', // При неизвестных путях, перенаправляем на страницу 404
@@ -55,12 +63,11 @@ export default new VueRouter({
   ],
 });
 
-
 // // Функция которая проверяет авторизован ли пользователь, если нет, перекидывает его на страницу авторизации.
 function AuthGuard(from, to, next) {
-    if (store.getters.isUserAuthenticated) {
-      next();
-    } else {
-      next('/authorization');
-    }
+  if (store.getters.isUserAuthenticated) {
+    next();
+  } else {
+    next('/authorization');
+  }
 }

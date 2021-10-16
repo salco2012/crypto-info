@@ -37,7 +37,7 @@
         light
         rounded
         :to="item.route"
-        class="ml-2"
+        class="ml-3"
         @click="exitUserAccount($event)"
       >
         {{ item.title }}
@@ -94,6 +94,11 @@ export default {
           icon: 'mdi-newspaper-variant-multiple',
           title: 'Актуальные новости',
           route: '/actual-news',
+        },
+        {
+          icon: 'far fa-hdd',
+          title: 'Данные о майнинге',
+          route: '/mining',
         },
         {
           icon: 'mdi-account-circle',

@@ -4,7 +4,7 @@
       Курс криптовалют:
     </h1>
 
-    <AddTickerInput/>
+    <AddTickerInput />
 
     <InformationCard />
 
