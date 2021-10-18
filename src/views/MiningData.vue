@@ -3,13 +3,12 @@
     <h1 class="titleText mb-6 mt-4 text-center">Данные о майнинге</h1>
     <v-row class="pt-10">
       <v-col cols="2">
-        <BaseInput label="Например Ethereum" />
+        <BaseInput v-model="coin" label="Например Ethereum" />
       </v-col>
       <v-col>
-        <BaseButton />
+        <BaseButton @click="addСoin()" />
       </v-col>
     </v-row>
-
     <v-row>
       <v-col cols="2" v-for="(item, index) in miningData" :key="index">
         <v-card class="mb-5">
@@ -24,18 +23,18 @@
             :src="`https://www.cryptocompare.com${item.CoinInfo.ImageUrl}`"
           ></v-img>
 
-          <v-card-text class="pa-0 pl-3 pt-4 textCardMining">
-            <span style="font-size: 1rem;">
-              <i class="fas fa-font"></i>
-            </span>
-            {{ `Name: ${item.CoinInfo.Name}` }}
-          </v-card-text>
-
           <v-card-text class="pa-0 pl-3 pt-2 textCardMining">
             <span style="font-size: 1rem;">
               <i class="fas fa-key"></i>
             </span>
             {{ `Id: ${item.CoinInfo.Id} ` }}
+          </v-card-text>
+
+          <v-card-text class="pa-0 pl-3 pt-2 textCardMining">
+            <span style="font-size: 1rem;">
+              <i class="fas fa-font"></i>
+            </span>
+            {{ `Name: ${item.CoinInfo.Name}` }}
           </v-card-text>
 
           <v-card-text class="pa-0 pl-3 pt-2 textCardMining">
@@ -122,21 +121,23 @@ export default {
   data() {
     return {
       miningData: [],
+      coin: '',
     };
   },
   methods: {
-    async getApiMiningData() {
+    async getApiMiningData(coin) {
       const response = await fetch(
-        `https://min-api.cryptocompare.com/data/blockchain/mining/calculator?fsyms=BTC,ETH,ZEC&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
+        `https://min-api.cryptocompare.com/data/blockchain/mining/calculator?fsyms=${coin}&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
       );
       const result = await response.json();
       Object.keys(result.Data).filter((key) => {
         this.miningData.push(result.Data[key]);
       });
     },
-  },
-  created() {
-    this.getApiMiningData();
+    addСoin() {
+      this.getApiMiningData(this.coin);
+      this.coin = '';
+    },
   },
 };
 </script>
