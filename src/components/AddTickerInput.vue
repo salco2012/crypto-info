@@ -1,5 +1,5 @@
 <template>
-  <v-container bg fill-height grid-list-md text-xs-center>
+  <v-container>
     <v-row class="pt-10 pl-0" justify="center">
       <v-col cols="2" class="pa-0">
         <BaseInput v-model="ticker" />
@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import BaseButton from '../components/BaseButton.vue';
-import BaseInput from '../components/BaseInput.vue';
+import BaseButton from './BaseComponents/BaseButton.vue';
+import BaseInput from './BaseComponents/BaseInput.vue';
 
 export default {
   components: {
