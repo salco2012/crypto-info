@@ -20,17 +20,13 @@
             {{ ticker.price }}
           </v-card-title>
           <v-card-actions class="justify-center pb-3">
-            <v-btn
+            <BaseButton
               color="red"
-              dark
-              small
-              @click.stop="deleteTickersCard(ticker)"
-            >
-              <span style="font-size: 16px; color: white;">
-                <i class="far fa-trash-alt mr-1"></i>
-              </span>
-              Удалить</v-btn
-            >
+              icon="far fa-trash-alt mr-1"
+              title="удалить"
+              :small="true"
+              @click="deleteTickersCard(ticker)"
+            />
           </v-card-actions>
         </v-card>
       </v-col>
@@ -49,7 +45,12 @@
 </template>
 
 <script>
+import BaseButton from '../components/BaseButton.vue';
+
 export default {
+  components: {
+    BaseButton,
+  },
   data() {
     return {
       cardsPerPage: 12,

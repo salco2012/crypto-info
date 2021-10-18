@@ -8,18 +8,18 @@
 
     <InformationCard />
 
-    <cryptocurrencyСhart />
+    <CryptocurrencyСhart />
   </v-container>
 </template>
 
 <script>
 import InformationCard from '../components/InformationCard.vue';
-import cryptocurrencyСhart from '../components/СryptocurrencyСhart.vue';
+import CryptocurrencyСhart from '../components/СryptocurrencyСhart.vue';
 import AddTickerInput from '../components/AddTickerInput.vue';
 
 export default {
   components: {
-    cryptocurrencyСhart,
+    CryptocurrencyСhart,
     InformationCard,
     AddTickerInput,
   },
