@@ -43,8 +43,8 @@ export default {
     },
   },
   methods: {
-    click($event) {
-      this.$emit('click', $event);
+    click(event) {
+      this.$emit('click', event);
     },
   },
 };

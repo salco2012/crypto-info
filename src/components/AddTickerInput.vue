@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="pt-10 pl-0" justify="center">
       <v-col cols="2" class="pa-0">
-        <BaseInput v-model="ticker" />
+        <BaseInput v-model="ticker" @keydownEnter.prevent="addTicker" />
         <v-row justify="start" align="center" v-if="ticker">
           <v-chip
             draggable

@@ -1,9 +1,29 @@
 <template>
   <v-container>
     <h1 class="titleText mb-6 mt-4 text-center">Данные о майнинге</h1>
+
     <v-row class="pt-10">
       <v-col cols="2">
-        <BaseInput v-model="coin" label="Например Ethereum" />
+        <BaseInput
+          v-model="currentCoin"
+          label="Например Ethereum"
+          @keydownEnter.prevent="addСoin()"
+        />
+        <v-row v-if="currentCoin">
+          <v-chip
+            draggable
+            class="ma-1"
+            style="cursor: pointer"
+            v-for="(item, index) in searchCoin"
+            :key="index"
+            @click="addСoin($event)"
+          >
+            {{ item }}
+          </v-chip>
+          <p v-if="repeatStatusCoin" class="repeatText">
+            Такой тикер уже добавлен!
+          </p>
+        </v-row>
       </v-col>
       <v-col>
         <BaseButton @click="addСoin()" />
@@ -90,7 +110,13 @@
             <span style="font-size: 1rem;">
               <i class="fas fa-dollar-sign"></i>
             </span>
-            {{ `Price: ${item.Price.USD} $` }}
+            {{
+              `Price: ${
+                item.Price.USD > 1
+                  ? item.Price.USD.toFixed(2)
+                  : item.Price.USD.toPrecision(2)
+              } $`
+            }}
           </v-card-text>
 
           <a
@@ -121,22 +147,63 @@ export default {
   data() {
     return {
       miningData: [],
-      coin: '',
+      currentCoin: null,
+      availableCoinList: [],
+      repeatStatusCoin: false,
     };
   },
   methods: {
-    async getApiMiningData(coin) {
+    repeatStatus() {
+      for (let elem of this.miningData) {
+        if (elem.CoinInfo.Name === this.currentCoin) {
+          this.repeatStatusCoin = true;
+        } else {
+          this.repeatStatusCoin = false;
+        }
+      }
+    },
+    async getApiMiningData(currentCoin) {
+      this.repeatStatus();
       const response = await fetch(
-        `https://min-api.cryptocompare.com/data/blockchain/mining/calculator?fsyms=${coin}&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
+        `https://min-api.cryptocompare.com/data/blockchain/mining/calculator?fsyms=${currentCoin}&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
       );
       const result = await response.json();
       Object.keys(result.Data).filter((key) => {
-        this.miningData.push(result.Data[key]);
+        if (this.repeatStatusCoin === false) {
+          this.miningData.push(result.Data[key]);
+        }
       });
     },
-    addСoin() {
-      this.getApiMiningData(this.coin);
-      this.coin = '';
+    addСoin(event) {
+      if (event) {
+        this.currentCoin = event.target.innerText;
+        this.getApiMiningData(event.target.innerText);
+      } else {
+        this.getApiMiningData(this.currentCoin);
+      }
+
+      this.currentCoin = '';
+    },
+    async getAvailableCoinList() {
+      const response = await fetch(
+        'https://min-api.cryptocompare.com/data/blockchain/list?api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff'
+      );
+      const result = await response.json();
+      Object.keys(result.Data).map((key) => {
+        this.availableCoinList.push(result.Data[key].symbol);
+      });
+    },
+  },
+  created() {
+    this.getAvailableCoinList();
+  },
+  computed: {
+    searchCoin() {
+      return this.availableCoinList
+        .filter((el) => {
+          return el.toUpperCase().includes(this.currentCoin.toUpperCase());
+        })
+        .slice(0, 4);
     },
   },
 };
@@ -167,6 +234,15 @@ export default {
 }
 .linkCardMining:hover {
   background-color: rgb(90, 157, 235);
+}
+.repeatText {
+  color: red;
+  background-color: #e0e0e0;
+  padding: 5px;
+  width: 100%;
+  border-radius: 20px;
+  text-align: center;
+  margin: 5px 0 5px 5px;
 }
 </style>
 

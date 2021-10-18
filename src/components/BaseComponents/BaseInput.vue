@@ -5,6 +5,7 @@
     :label="label"
     :value="value"
     @input="updateValue($event)"
+    @keydown.enter="keydownEnter($event)"
   />
 </template>
 
@@ -32,6 +33,9 @@ export default {
   methods: {
     updateValue(event) {
       this.$emit('input', event);
+    },
+    keydownEnter(event) {
+      this.$emit('keydownEnter', event);
     },
   },
 };
