@@ -1,15 +1,11 @@
 <template>
-  <v-container>
-    <h1 class="titleText mt-4 text-center">
-      Курс криптовалют:
-    </h1>
-
+  <div>
     <AddTickerInput />
 
     <InformationCard />
 
     <CryptocurrencyСhart />
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -26,12 +22,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.titleText {
-  font-family: 'Russo One', sans-serif;
-  font-weight: normal;
-  color: #490c53;
-  margin: 0 auto;
-  text-transform: uppercase;
-}
-</style>
+<style scoped></style>

@@ -2,12 +2,13 @@
   <v-container>
     <h1 class="titleText mb-6 mt-4 text-center">Данные о майнинге</h1>
 
-    <v-row class="pt-10">
-      <v-col cols="2">
+    <v-row class="pt-10 ">
+      <v-col cols="2" class="pa-0">
         <BaseInput
           v-model="currentCoin"
           label="Например Ethereum"
           @keydownEnter.prevent="addСoin()"
+          class="pl-3"
         />
         <v-row v-if="currentCoin" class="pl-2">
           <v-chip
@@ -173,49 +174,64 @@ export default {
     };
   },
   methods: {
-    repeatStatus() {
-      for (let elem of this.miningData) {
-        if (elem.CoinInfo.Name === this.currentCoin) {
-          this.repeatStatusCoin = true;
-        } else {
-          this.repeatStatusCoin = false;
-        }
-      }
-    },
     async getApiMiningData(currentCoin) {
-      this.repeatStatus();
-      const response = await fetch(
-        `https://min-api.cryptocompare.com/data/blockchain/mining/calculator?fsyms=${currentCoin}&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
-      );
-      const result = await response.json();
-      Object.keys(result.Data).filter((key) => {
-        if (this.repeatStatusCoin === false) {
+      try {
+        const response = await fetch(
+          `https://min-api.cryptocompare.com/data/blockchain/mining/calculator?fsyms=${currentCoin}&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
+        );
+        const result = await response.json();
+
+        Object.keys(result.Data).map((key) => {
           this.miningData.push(result.Data[key]);
-        }
-      });
+        });
+        sessionStorage.setItem('mining-list', JSON.stringify(this.miningData));
+      } catch (error) {
+        console.error(error);
+      }
     },
     addСoin(event) {
       if (event) {
         this.currentCoin = event.target.innerText;
-        this.getApiMiningData(event.target.innerText);
-      } else {
-        this.getApiMiningData(this.currentCoin);
       }
 
-      this.currentCoin = '';
+      if (this.miningAllName.includes(this.currentCoin.toUpperCase())) {
+        this.repeatStatusCoin = true;
+        return;
+      } else {
+        this.getApiMiningData(this.currentCoin);
+        this.currentCoin = '';
+        this.repeatStatusCoin = false;
+      }
     },
     async getAvailableCoinList() {
-      const response = await fetch(
-        'https://min-api.cryptocompare.com/data/blockchain/list?api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff'
-      );
-      const result = await response.json();
-      Object.keys(result.Data).map((key) => {
-        this.availableCoinList.push(result.Data[key].symbol);
-      });
+      try {
+        const response = await fetch(
+          'https://min-api.cryptocompare.com/data/blockchain/list?api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff'
+        );
+        const result = await response.json();
+        Object.keys(result.Data).map((key) => {
+          this.availableCoinList.push(result.Data[key].symbol);
+        });
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
   created() {
+    // Загружаем список доступных монеток с сервера
     this.getAvailableCoinList();
+
+    //Сохраняем данные в SessionStotage
+    const miningSessionStorage = sessionStorage.getItem('mining-list');
+    if (miningSessionStorage) {
+      let mining = JSON.parse(miningSessionStorage);
+
+      if (this.miningData.length === 0) {
+        for (let item of mining) {
+          this.miningData.push(item);
+        }
+      }
+    }
   },
   computed: {
     searchCoin() {
@@ -224,6 +240,9 @@ export default {
           return el.toUpperCase().includes(this.currentCoin.toUpperCase());
         })
         .slice(0, 4);
+    },
+    miningAllName() {
+      return this.miningData.map((el) => el.CoinInfo.Name);
     },
   },
 };

@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <v-row class="pt-10 pl-0" justify="center">
+    <h1 class="titleText mb-6 mt-4 text-center">
+      Курс криптовалют:
+    </h1>
+    <v-row class="pt-10 pl-3" justify="center">
       <v-col cols="2" class="pa-0">
         <BaseInput v-model="ticker" @keydownEnter.prevent="addTicker" />
         <v-row justify="start" align="center" v-if="ticker">
@@ -122,6 +125,13 @@ export default {
 </script>
 
 <style scoped>
+.titleText {
+  font-family: 'Russo One', sans-serif;
+  font-weight: normal;
+  color: #490c53;
+  margin: 0 auto;
+  text-transform: uppercase;
+}
 .repeatText {
   color: red;
   background-color: #e0e0e0;

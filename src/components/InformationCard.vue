@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-row class="mt-5">
       <v-col
         md="2"
@@ -41,7 +41,7 @@
         ></v-pagination>
       </div>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>
