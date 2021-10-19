@@ -9,7 +9,7 @@
           label="Например Ethereum"
           @keydownEnter.prevent="addСoin()"
         />
-        <v-row v-if="currentCoin">
+        <v-row v-if="currentCoin" class="pl-2">
           <v-chip
             draggable
             class="ma-1"
@@ -25,10 +25,36 @@
           </p>
         </v-row>
       </v-col>
+
       <v-col>
         <BaseButton @click="addСoin()" />
       </v-col>
     </v-row>
+
+    <v-row>
+      <v-col cols="3">
+        <v-card>
+          <v-toolbar dense flat color="rgb(42, 139, 250)" dark>
+            <v-toolbar-title>Дополнительно</v-toolbar-title>
+          </v-toolbar>
+
+          <v-card-text class="pa-0 pl-2">
+            <v-chip-group column multiple>
+              <v-chip
+                filter
+                outlined
+                @click="selectFilter(item)"
+                v-for="(index, item) in filterStatus"
+                :key="item.id"
+              >
+                {{ item }}
+              </v-chip>
+            </v-chip-group>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
     <v-row>
       <v-col cols="2" v-for="(item, index) in miningData" :key="index">
         <v-card class="mb-5">
@@ -43,7 +69,10 @@
             :src="`https://www.cryptocompare.com${item.CoinInfo.ImageUrl}`"
           ></v-img>
 
-          <v-card-text class="pa-0 pl-3 pt-2 textCardMining">
+          <v-card-text
+            v-if="filterStatus.Id"
+            class="pa-0 pl-3 pt-2 textCardMining"
+          >
             <span style="font-size: 1rem;">
               <i class="fas fa-key"></i>
             </span>
@@ -57,7 +86,10 @@
             {{ `Name: ${item.CoinInfo.Name}` }}
           </v-card-text>
 
-          <v-card-text class="pa-0 pl-3 pt-2 textCardMining">
+          <v-card-text
+            v-if="filterStatus.FullName"
+            class="pa-0 pl-3 pt-2 textCardMining"
+          >
             <span style="font-size: 1rem;">
               <i class="fas fa-spell-check"></i>
             </span>
@@ -99,7 +131,10 @@
             }}
           </v-card-text>
 
-          <v-card-text class="pa-0 pl-3 pt-2 textCardMining">
+          <v-card-text
+            v-if="filterStatus.AssetLaunchDate"
+            class="pa-0 pl-3 pt-2 textCardMining"
+          >
             <span style="font-size: 1rem;">
               <i class="fas fa-calendar-alt"></i>
             </span>
@@ -150,9 +185,17 @@ export default {
       currentCoin: null,
       availableCoinList: [],
       repeatStatusCoin: false,
+      filterStatus: {
+        Id: false,
+        FullName: false,
+        AssetLaunchDate: false,
+      },
     };
   },
   methods: {
+    selectFilter(item) {
+      this.filterStatus[item] = !this.filterStatus[item];
+    },
     repeatStatus() {
       for (let elem of this.miningData) {
         if (elem.CoinInfo.Name === this.currentCoin) {
@@ -245,29 +288,3 @@ export default {
   margin: 5px 0 5px 5px;
 }
 </style>
-
-<!-- 
-1) Id - Уникальный идентификатор этой монеты.
-
-2) Name - Внешнее сокращенное / символьное название монеты.
-
-3) FullName - Полное название монеты.
-
-4) ImageUrl - Cryptocompare размещает изображение для этого логотипа монет.
-
-5) Url - Расширение URL для поиска монеты на сайте cryptocompare.com
-
-6) NetHashesPerSecond - Общее количество хешей в секунду, которое имеет этот блокчейн.
-
-7) BlockTime - Секунды, необходимые для добычи блока.
-
-8) BlockReward - Количество активов, получаемых за майнинг блока.
-
-9) TotalCoinsMined - Текущее предложение конкретного актива.
-
-10) AssetLaunchDate - Дата первого выпуска этого ресурса в формате гггг-мм-дд.
-
-11) MaxSupply - Максимальное предложение конкретного актива.
-
-12) Price - цена
--->
