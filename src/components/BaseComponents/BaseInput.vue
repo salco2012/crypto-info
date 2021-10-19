@@ -4,6 +4,7 @@
     :type="type"
     :label="label"
     :value="value"
+    :error="error"
     @input="updateValue($event)"
     @keydown.enter="keydownEnter($event)"
   />
@@ -13,6 +14,10 @@
 export default {
   name: 'BaseInput',
   props: {
+    error: {
+      type: Boolean,
+      default: false,
+    },
     label: {
       type: String,
       default: 'Например ZCash',

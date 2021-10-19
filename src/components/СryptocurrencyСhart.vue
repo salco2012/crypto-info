@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pl-3 mt-8">
+  <v-container class="pl-3 mt-8 mb-8">
     <div
       class="wrapper-sparkline"
       v-if="getTickersCards.length && getCurrentClickTicker"

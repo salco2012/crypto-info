@@ -7,10 +7,11 @@
         <BaseInput
           v-model="currentCoin"
           label="Например Ethereum"
+          :error="isUnknownCoin"
           @keydownEnter.prevent="addСoin()"
           class="pl-3"
         />
-        <v-row v-if="currentCoin" class="pl-2">
+        <v-row v-if="currentCoin" class="pl-5 mb-3">
           <v-chip
             draggable
             class="ma-1"
@@ -21,10 +22,13 @@
           >
             {{ item }}
           </v-chip>
-          <p v-if="repeatStatusCoin" class="repeatText">
+          <p v-if="repeatStatusCoin" class="isError">
             Такой тикер уже добавлен!
           </p>
         </v-row>
+        <p v-show="isUnknownCoin" class="isError ml-3">
+          Неизвестный coin
+        </p>
       </v-col>
 
       <v-col>
@@ -166,6 +170,7 @@ export default {
       currentCoin: null,
       availableCoinList: [],
       repeatStatusCoin: false,
+      isUnknownCoin: false,
       filterStatus: {
         Id: false,
         FullName: false,
@@ -175,19 +180,21 @@ export default {
   },
   methods: {
     async getApiMiningData(currentCoin) {
-      try {
-        const response = await fetch(
-          `https://min-api.cryptocompare.com/data/blockchain/mining/calculator?fsyms=${currentCoin}&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
-        );
-        const result = await response.json();
-
+      const response = await fetch(
+        `https://min-api.cryptocompare.com/data/blockchain/mining/calculator?fsyms=${currentCoin}&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
+      );
+      const result = await response.json();
+      if (result.Response === 'Success') {
         Object.keys(result.Data).map((key) => {
           this.miningData.push(result.Data[key]);
         });
-        sessionStorage.setItem('mining-list', JSON.stringify(this.miningData));
-      } catch (error) {
-        console.error(error);
+        this.isUnknownCoin = false;
+      } else {
+        this.isUnknownCoin = true;
+        console.error(result.Message);
       }
+
+      sessionStorage.setItem('mining-list', JSON.stringify(this.miningData));
     },
     addСoin(event) {
       if (event) {
@@ -196,7 +203,6 @@ export default {
 
       if (this.miningAllName.includes(this.currentCoin.toUpperCase())) {
         this.repeatStatusCoin = true;
-        return;
       } else {
         this.getApiMiningData(this.currentCoin);
         this.currentCoin = '';
@@ -274,7 +280,7 @@ export default {
 .linkCardMining:hover {
   background-color: rgb(90, 157, 235);
 }
-.repeatText {
+.isError {
   color: red;
   background-color: #e0e0e0;
   padding: 5px;
