@@ -31,29 +31,7 @@
       </v-col>
     </v-row>
 
-    <v-row>
-      <v-col cols="3">
-        <v-card>
-          <v-toolbar dense flat color="rgb(42, 139, 250)" dark>
-            <v-toolbar-title>Дополнительно</v-toolbar-title>
-          </v-toolbar>
-
-          <v-card-text class="pa-0 pl-2">
-            <v-chip-group column multiple>
-              <v-chip
-                filter
-                outlined
-                @click="selectFilter(item)"
-                v-for="(index, item) in filterStatus"
-                :key="item.id"
-              >
-                {{ item }}
-              </v-chip>
-            </v-chip-group>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+    <FilterMining :miningData="miningData" :filterStatus="filterStatus" />
 
     <v-row>
       <v-col cols="2" v-for="(item, index) in miningData" :key="index">
@@ -173,11 +151,13 @@
 <script>
 import BaseButton from '../components/BaseComponents/BaseButton.vue';
 import BaseInput from '../components/BaseComponents/BaseInput.vue';
+import FilterMining from './FilterMining.vue';
 
 export default {
   components: {
     BaseButton,
     BaseInput,
+    FilterMining,
   },
   data() {
     return {
@@ -193,9 +173,6 @@ export default {
     };
   },
   methods: {
-    selectFilter(item) {
-      this.filterStatus[item] = !this.filterStatus[item];
-    },
     repeatStatus() {
       for (let elem of this.miningData) {
         if (elem.CoinInfo.Name === this.currentCoin) {
