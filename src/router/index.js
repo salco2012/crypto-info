@@ -7,6 +7,7 @@ import pageNotFound from '../views/PageNotFound.vue';
 import actualNews from '../views/ActualNews.vue';
 import cryptocurrencyRate from '../views/CryptocurrencyRate.vue';
 import miningData from '../views/MiningData.vue';
+import informationExchanges from '../views/InformationExchanges.vue';
 
 import store from '../store/index';
 
@@ -34,6 +35,12 @@ export default new VueRouter({
       path: '/actual-news',
       name: 'actualNews',
       component: actualNews,
+      beforeEnter: AuthGuard,
+    },
+    {
+      path: '/information-exchanges',
+      name: 'informationExchanges',
+      component: informationExchanges,
       beforeEnter: AuthGuard,
     },
     {

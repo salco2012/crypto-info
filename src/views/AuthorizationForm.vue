@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height" fluid>
+  <div class="wrapper-auth">
     <v-row align="center" justify="center">
       <v-col cols="12" md="8">
         <v-card elevation="8">
@@ -173,7 +173,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -257,6 +257,12 @@ export default {
 </script>
 
 <style scoped>
+.wrapper-auth {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .myError {
   color: red;
   margin-top: -15px;

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height" fluid>
+  <div class="wrapper-register">
     <v-row align="center" justify="center">
       <v-col cols="12" md="8">
         <v-card elevation="8">
@@ -150,7 +150,6 @@
                       dark
                       @click="$router.push('/cryptocurrency-rate')"
                     >
-                      <i class="fas fa-power-off"></i>
                       Продолжить</v-btn
                     >
                   </v-card-text>
@@ -193,7 +192,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -249,7 +248,6 @@ export default {
     isUserAuthenticated(value) {
       if (value === true) {
         this.step = 2;
-        // this.$router.push('/cryptocurrency-rate');
       }
     },
   },
@@ -268,6 +266,12 @@ export default {
 </script>
 
 <style scoped>
+.wrapper-register {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .myError {
   color: red;
   margin-top: -15px;

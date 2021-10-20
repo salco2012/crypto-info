@@ -1,16 +1,16 @@
 <template>
   <div class="home purple lighten-1">
-    <v-container class="fill-height">
+    <div>
       <v-row align="center" justify="center">
-        <v-col cols="12" md="10" class="text-center">
+        <v-col cols="12" md="12" class="text-center">
           <img src="@/assets/img/coin.png" alt="coint" width="320" />
           <h1 class="white--text">
-            Мониторьте курс криптовалют с нами.
+            Мониторьте курс криптовалют.
             <br />Всегда и бесплатно!
           </h1>
         </v-col>
       </v-row>
-    </v-container>
+    </div>
   </div>
 </template>
 
@@ -24,6 +24,9 @@ export default {
 
 <style scoped>
 .home {
-  height: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

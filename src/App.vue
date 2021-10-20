@@ -3,7 +3,9 @@
     <headerTop />
 
     <v-main>
-      <router-view></router-view>
+      <v-container>
+        <router-view></router-view>
+      </v-container>
     </v-main>
 
     <footerBottom />

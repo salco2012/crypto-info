@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <h1 class="titleText mb-6 mt-4 text-center">
       Актуальные финансовые новости:
     </h1>
@@ -43,7 +43,7 @@
         circle
       ></v-pagination>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>

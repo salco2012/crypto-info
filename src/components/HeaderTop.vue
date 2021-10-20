@@ -101,6 +101,11 @@ export default {
           route: '/mining',
         },
         {
+          icon: 'mdi-domain',
+          title: 'Информация по биржам',
+          route: '/information-exchanges',
+        },
+        {
           icon: 'mdi-account-circle',
           title: 'Выйти',
           route: null,

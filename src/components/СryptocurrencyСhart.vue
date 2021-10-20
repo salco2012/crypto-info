@@ -1,24 +1,22 @@
 <template>
-  <v-container class="pl-3 mt-8 mb-8">
-    <div
-      class="wrapper-sparkline"
-      v-if="getTickersCards.length && getCurrentClickTicker"
-    >
-      <h3 v-if="getCurrentClickTicker" class="title-charh">
-        {{ getCurrentClickTicker.name.toUpperCase() }}
-      </h3>
-      <v-sparkline
-        :fill="true"
-        color="rgba(194, 34, 127, .9)"
-        line-width="4"
-        padding="0"
-        height="50"
-        :smooth="8"
-        :value="getPriceArchive"
-      ></v-sparkline>
-      <span class="close-chart" @click="resetCurrentTicker">&#10006;</span>
-    </div>
-  </v-container>
+  <div
+    class="wrapper-sparkline mt-6"
+    v-if="getTickersCards.length && getCurrentClickTicker"
+  >
+    <h3 v-if="getCurrentClickTicker" class="title-charh">
+      {{ getCurrentClickTicker.name.toUpperCase() }}
+    </h3>
+    <v-sparkline
+      :fill="true"
+      color="rgba(194, 34, 127, .9)"
+      line-width="4"
+      padding="0"
+      height="50"
+      :smooth="8"
+      :value="getPriceArchive"
+    ></v-sparkline>
+    <span class="close-chart" @click="resetCurrentTicker">&#10006;</span>
+  </div>
 </template>
 
 <script>

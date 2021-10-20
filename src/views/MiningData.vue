@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <h1 class="titleText mb-6 mt-4 text-center">Данные о майнинге</h1>
 
     <v-row class="pt-10">
@@ -150,7 +150,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
