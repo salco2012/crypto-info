@@ -2,7 +2,7 @@
   <v-container>
     <h1 class="titleText mb-6 mt-4 text-center">Данные о майнинге</h1>
 
-    <v-row class="pt-10 ">
+    <v-row class="pt-10">
       <v-col cols="2" class="pa-0">
         <BaseInput
           v-model="currentCoin"
@@ -40,7 +40,7 @@
 
     <v-row>
       <v-col cols="2" v-for="(item, index) in miningData" :key="index">
-        <v-card class="mb-5">
+        <v-card>
           <v-card-title class="titleCardMining">
             {{ item.CoinInfo.Name }}
           </v-card-title>

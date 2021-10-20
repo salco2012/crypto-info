@@ -227,7 +227,7 @@ export default {
   watch: {
     isUserAuthenticated(value) {
       if (value === true) {
-        this.$router.push('/user-account');
+        this.$router.push('/cryptocurrency-rate');
       }
     },
   },

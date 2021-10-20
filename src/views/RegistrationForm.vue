@@ -3,8 +3,8 @@
     <v-row align="center" justify="center">
       <v-col cols="12" md="8">
         <v-card elevation="8">
-          <v-window>
-            <v-window-item>
+          <v-window v-model="step">
+            <v-window-item :value="1">
               <v-row>
                 <v-col
                   cols="12"
@@ -135,6 +135,60 @@
                 </v-col>
               </v-row>
             </v-window-item>
+
+            <v-window-item :value="2">
+              <v-row>
+                <v-col
+                  cols="12"
+                  md="4"
+                  class="purple accent-5 d-flex align-center"
+                >
+                  <v-card-text class="white--text text-center">
+                    <v-btn
+                      rounded
+                      outlined
+                      dark
+                      @click="$router.push('/cryptocurrency-rate')"
+                    >
+                      <i class="fas fa-power-off"></i>
+                      Продолжить</v-btn
+                    >
+                  </v-card-text>
+                </v-col>
+                <v-col cols="12" md="8">
+                  <v-card-text>
+                    <div class="d-flex justify-end">
+                      <v-btn
+                        small
+                        icon
+                        dark
+                        @click="$router.push('/cryptocurrency-rate')"
+                      >
+                        <v-icon small color="purple accent-5">
+                          mdi-close-thick
+                        </v-icon>
+                      </v-btn>
+                    </div>
+
+                    <div class="text-start">
+                      <h1 class="mb-6">
+                        {{ `${registrationForm.name} поздравляем!` }}
+                      </h1>
+                      <p class="green--text">Регистрация прошла успешно</p>
+                      <p>
+                        {{ `Ваша почта: ${registrationForm.email}` }}
+                      </p>
+                      <p>
+                        {{ `Ваш пароль: ${registrationForm.password}` }}
+                      </p>
+                      <p class="red--text">
+                        Не сообщайте Ваши данные третьим лицам
+                      </p>
+                    </div>
+                  </v-card-text>
+                </v-col>
+              </v-row>
+            </v-window-item>
           </v-window>
         </v-card>
       </v-col>
@@ -155,6 +209,7 @@ const alphaRus = helpers.regex('alphaRus', /[А-ЯЁа-яё]/);
 export default {
   data() {
     return {
+      step: 1,
       registrationForm: {
         name: null,
         email: null,
@@ -193,7 +248,8 @@ export default {
   watch: {
     isUserAuthenticated(value) {
       if (value === true) {
-        this.$router.push('/user-account');
+        this.step = 2;
+        // this.$router.push('/cryptocurrency-rate');
       }
     },
   },

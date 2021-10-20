@@ -4,7 +4,6 @@ import Home from '../views/Home.vue';
 import authorizationForm from '../views/AuthorizationForm.vue';
 import registrationForm from '../views/RegistrationForm.vue';
 import pageNotFound from '../views/PageNotFound.vue';
-import userAccount from '../views/UserAccount.vue';
 import actualNews from '../views/ActualNews.vue';
 import cryptocurrencyRate from '../views/CryptocurrencyRate.vue';
 import miningData from '../views/MiningData.vue';
@@ -30,12 +29,6 @@ export default new VueRouter({
       path: '/registration-form',
       name: 'registrationForm',
       component: registrationForm,
-    },
-    {
-      path: '/user-account',
-      name: 'userAccount',
-      component: userAccount,
-      beforeEnter: AuthGuard,
     },
     {
       path: '/actual-news',
