@@ -81,6 +81,10 @@ export default {
     },
     deleteTickersCard(ticker) {
       this.$store.commit('DELETE_TICKER_CARD', ticker);
+      sessionStorage.setItem(
+        'cryptonomicon-list',
+        JSON.stringify(this.getTickersCards)
+      );
     },
   },
 };

@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1 class="titleText mb-6 mt-4 text-center">Данные о майнинге</h1>
-
     <v-row class="pt-10">
       <v-col cols="2" class="pa-0">
         <BaseInput
@@ -40,8 +39,15 @@
 
     <v-row>
       <v-col cols="2" v-for="(item, index) in miningData" :key="index">
-        <v-card>
+        <v-card class="cardMining">
           <v-card-title class="titleCardMining">
+            <span
+              style="font-size: .7em;"
+              class="onCloseCard"
+              @click="onCloseCard(item)"
+            >
+              <i class="fas fa-times"></i>
+            </span>
             {{ item.CoinInfo.Name }}
           </v-card-title>
 
@@ -209,6 +215,11 @@ export default {
         this.repeatStatusCoin = false;
       }
     },
+    onCloseCard(item) {
+      const index = this.miningData.indexOf(item);
+      this.miningData.splice(index, 1);
+      sessionStorage.setItem('mining-list', JSON.stringify(this.miningData));
+    },
     async getAvailableCoinList() {
       try {
         const response = await fetch(
@@ -288,5 +299,14 @@ export default {
   border-radius: 20px;
   text-align: center;
   margin: 5px 0 5px 5px;
+}
+.cardMining {
+  position: relative;
+}
+.onCloseCard {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
 }
 </style>
