@@ -23,12 +23,31 @@
         light
         rounded
         :to="item.route"
-        class="ml-2"
+        class="hidden-sm-and-down ml-2"
         @click="clearError"
       >
         {{ item.title }}
-        <v-icon right v-html="item.icon"></v-icon> </v-btn
-    ></template>
+        <v-icon right v-html="item.icon"></v-icon>
+      </v-btn>
+      <div class="hidden-md-and-up">
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="transparent" v-bind="attrs" v-on="on" depressed>
+              <i class="fas fa-bars"></i>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in menuItemsHome"
+              :key="index"
+              :to="item.route"
+            >
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
+    </template>
 
     <template v-if="isUserAuthenticated === true">
       <v-btn
@@ -37,12 +56,32 @@
         light
         rounded
         :to="item.route"
-        class="ml-3"
+        class="hidden-md-and-down ml-3"
         @click="exitUserAccount($event)"
       >
         {{ item.title }}
         <v-icon right v-html="item.icon"></v-icon>
       </v-btn>
+
+      <div class="hidden-lg-and-up">
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="transparent" v-bind="attrs" v-on="on" depressed>
+              <i class="fas fa-bars"></i>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in menuItemsUserAccount"
+              :key="index"
+              :to="item.route"
+              @click="exitUserAccount($event)"
+            >
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
     </template>
   </v-app-bar>
 </template>
@@ -92,7 +131,7 @@ export default {
         },
         {
           icon: 'mdi-newspaper-variant-multiple',
-          title: 'Актуальные новости',
+          title: 'Новости',
           route: '/actual-news',
         },
         {
