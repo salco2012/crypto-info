@@ -5,6 +5,7 @@
     :small="small"
     @click="click($event)"
     :disabled="disabled"
+    rounded
   >
     <v-icon left>
       {{ icon }}

@@ -9,6 +9,7 @@
       >
         <v-card
           @click="selectTicker(ticker)"
+          class="rounded-card"
           :class="{
             'border-card': currentClickTicker === ticker,
           }"
@@ -94,5 +95,9 @@ export default {
 .pagination {
   margin: 0 auto;
   cursor: pointer;
+}
+
+.rounded-card {
+  border-radius: 6px;
 }
 </style>
