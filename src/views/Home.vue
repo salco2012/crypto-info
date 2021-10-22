@@ -3,7 +3,7 @@
     <div>
       <v-row align="center" justify="center">
         <v-col cols="12" md="12" class="text-center">
-          <img src="@/assets/img/coin.png" alt="coint" width="320" />
+          <img src="@/assets/img/coin.png" alt="coint" width="300" />
           <h1 class="white--text">
             Мониторьте курс криптовалют.
             <br />Всегда и бесплатно!

@@ -6,7 +6,7 @@
           <v-window v-model="step">
             <v-window-item :value="1">
               <v-row>
-                <v-col cols="12" md="8">
+                <v-col cols="12" md="7">
                   <v-card-text>
                     <h1 class="mb-4 mt-6 text-center">
                       Авторизация
@@ -67,7 +67,7 @@
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="5"
                   class="purple accent-5 d-flex flex-column"
                 >
                   <div class="ml-auto mb-auto">
@@ -266,5 +266,8 @@ export default {
 .myError {
   color: red;
   margin-top: -15px;
+}
+h1 {
+  line-height: 1.1em;
 }
 </style>

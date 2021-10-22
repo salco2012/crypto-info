@@ -1,6 +1,6 @@
 <template>
   <div
-    class="wrapper-sparkline mt-6"
+    class="wrapper-sparkline mt-6 mb-4"
     v-if="getTickersCards.length && getCurrentClickTicker"
   >
     <h3 v-if="getCurrentClickTicker" class="title-charh">

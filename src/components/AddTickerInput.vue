@@ -4,7 +4,7 @@
       Курс криптовалют:
     </h1>
     <v-row class="pt-10 pl-3" justify="center">
-      <v-col cols="2" class="pa-0">
+      <v-col lg="2" md="3" sm="4" xs="6" class="pa-0">
         <BaseInput v-model="ticker" @keydownEnter.prevent="addTicker" />
         <v-row justify="start" align="center" v-if="ticker">
           <v-chip
@@ -22,7 +22,7 @@
           </p>
         </v-row>
       </v-col>
-      <v-col>
+      <v-col lg="10" md="9" sm="8" xs="6">
         <BaseButton @click="addTicker" />
       </v-col>
     </v-row>

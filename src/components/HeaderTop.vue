@@ -136,12 +136,12 @@ export default {
         },
         {
           icon: 'far fa-hdd',
-          title: 'Данные о майнинге',
+          title: 'Данные по майнингу',
           route: '/mining',
         },
         {
           icon: 'mdi-domain',
-          title: 'Информация по биржам',
+          title: 'Биржи',
           route: '/information-exchanges',
         },
         {

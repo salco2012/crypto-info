@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1 class="titleText mb-6 mt-4 text-center">Данные о майнинге</h1>
+    <h1 class="titleText mb-6 mt-4 text-center">Данные по майнингу</h1>
     <v-row class="pt-10">
-      <v-col cols="2" class="pa-0">
+      <v-col lg="2" md="3" sm="4" xs="6" class="pa-0">
         <BaseInput
           v-model="currentCoin"
           label="Например Ethereum"
@@ -25,12 +25,12 @@
             Такой тикер уже добавлен!
           </p>
         </v-row>
-        <p v-show="isUnknownCoin" class="isError ml-3">
+        <p v-if="isUnknownCoin" class="isError ml-3">
           Неизвестный coin
         </p>
       </v-col>
 
-      <v-col>
+      <v-col lg="10" md="9" sm="8" xs="6">
         <BaseButton @click="addСoin()" />
       </v-col>
     </v-row>
@@ -38,7 +38,15 @@
     <FilterMining :miningData="miningData" :filterStatus="filterStatus" />
 
     <v-row>
-      <v-col cols="2" v-for="(item, index) in miningData" :key="index">
+      <v-col
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+        xl="2"
+        v-for="(item, index) in miningData"
+        :key="index"
+      >
         <v-card class="cardMining">
           <v-card-title class="titleCardMining">
             <span

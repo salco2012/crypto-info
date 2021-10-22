@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="3">
+    <v-col cols="12" sm="6" lg="4">
       <v-card v-if="miningData.length">
         <v-toolbar dense flat color="rgb(42, 139, 250)" dark>
           <v-toolbar-title>Дополнительно</v-toolbar-title>

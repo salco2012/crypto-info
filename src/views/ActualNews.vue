@@ -6,8 +6,10 @@
     <v-row>
       <v-expansion-panels class="d-flex justify-center" v-model="autoСlose">
         <v-col
-          md="2"
-          xs="6"
+          sm="6"
+          md="4"
+          lg="3"
+          xl="2"
           v-for="(news, index) in newsCurretnPage"
           :key="index"
         >

@@ -2,8 +2,11 @@
   <div>
     <v-row class="mt-5">
       <v-col
-        md="2"
-        xs="6"
+        cols="12"
+        lg="2"
+        md="3"
+        sm="4"
+        xs="12"
         v-for="(ticker, index) in cardsCurretnPage"
         :key="index"
       >

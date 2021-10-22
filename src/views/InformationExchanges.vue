@@ -7,11 +7,11 @@
       :items-per-page="10"
       class="elevation-1 mb-5"
     >
-      <template v-slot:item.LogoUrl="{ value }">
+      <template v-slot:[`item.LogoUrl`]="{ value }">
         <img :src="`https://www.cryptocompare.com${value}`" height="50" />
       </template>
 
-      <template v-slot:item.GradePoints="{ item }">
+      <template v-slot:[`item.GradePoints`]="{ item }">
         <v-chip :color="getColor(item.GradePoints)">
           {{
             Math.round(item.GradePoints) === 0
@@ -21,18 +21,18 @@
         </v-chip>
       </template>
 
-      <template v-slot:item.Country="{value}">
+      <template v-slot:[`item.Country`]="{value}">
                 <span style="margin-right: 3px">
                  <i class="fas fa-globe-asia"></i>
               </span>
         {{value}}
       </template>
 
-      <template v-slot:item.TOTALVOLUME24H.BTC="{ value }">
+      <template v-slot:[`item.TOTALVOLUME24H.BTC`]="{ value }">
         {{ value ? value.toFixed(2) + ' $' : '-' }}
       </template>
 
-      <template v-slot:item.Rating.TotalUsers="{ value }">
+      <template v-slot:[`item.Rating.TotalUsers`]="{ value }">
         <span style="margin-right: 3px">
         <i class="fas fa-user-friends" color: Tomato></i>
         </span>
@@ -40,7 +40,7 @@
         {{ value }}
       </template>
 
-      <template v-slot:item.Description="{ value }">
+      <template v-slot:[`item.Description`]="{ value }">
         <div>
           <v-alert
           v-if="alertMeaning.includes(value)"
