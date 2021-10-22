@@ -11,7 +11,16 @@
       color="rgba(194, 34, 127, .9)"
       line-width="4"
       padding="0"
-      height="50"
+      :height="
+        $vuetify.breakpoint.xs
+          ? '100'
+          : $vuetify.breakpoint.sm
+          ? '60'
+          : $vuetify.breakpoint.md
+          ? '50'
+          : '50'
+      "
+      class="bracpointXS"
       :smooth="8"
       :value="getPriceArchive"
     ></v-sparkline>

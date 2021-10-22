@@ -4,13 +4,13 @@
     <v-row class="pt-10">
       <v-col lg="2" md="3" sm="4" xs="6" class="pa-0">
         <BaseInput
-          v-model="currentCoin"
+          v-model="searchInputCoin"
           label="Например Ethereum"
           :error="isUnknownCoin"
           @keydownEnter.prevent="addСoin()"
           class="pl-3"
         />
-        <v-row v-if="currentCoin" class="pl-5 mb-3">
+        <v-row v-if="searchInputCoin" class="pl-5 mb-3">
           <v-chip
             draggable
             class="ma-1"
@@ -181,7 +181,7 @@ export default {
   data() {
     return {
       miningData: [],
-      currentCoin: null,
+      searchInputCoin: null,
       availableCoinList: [],
       repeatStatusCoin: false,
       isUnknownCoin: false,
@@ -193,9 +193,9 @@ export default {
     };
   },
   methods: {
-    async getApiMiningData(currentCoin) {
+    async getApiMiningData(searchInputCoin) {
       const response = await fetch(
-        `https://min-api.cryptocompare.com/data/blockchain/mining/calculator?fsyms=${currentCoin}&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
+        `https://min-api.cryptocompare.com/data/blockchain/mining/calculator?fsyms=${searchInputCoin}&tsyms=USD&api_key=4b9a4ab5d678d62a4f000c38fafcdbee2fde445e9e3bd06f875e46b6a4ae53ff`
       );
       const result = await response.json();
       if (result.Response === 'Success') {
@@ -212,14 +212,14 @@ export default {
     },
     addСoin(event) {
       if (event) {
-        this.currentCoin = event.target.innerText;
+        this.searchInputCoin = event.target.innerText;
       }
 
-      if (this.miningAllName.includes(this.currentCoin.toUpperCase())) {
+      if (this.miningAllName.includes(this.searchInputCoin.toUpperCase())) {
         this.repeatStatusCoin = true;
       } else {
-        this.getApiMiningData(this.currentCoin);
-        this.currentCoin = '';
+        this.getApiMiningData(this.searchInputCoin);
+        this.searchInputCoin = '';
         this.repeatStatusCoin = false;
       }
     },
@@ -262,7 +262,7 @@ export default {
     searchCoin() {
       return this.availableCoinList
         .filter((el) => {
-          return el.toUpperCase().includes(this.currentCoin.toUpperCase());
+          return el.toUpperCase().includes(this.searchInputCoin.toUpperCase());
         })
         .slice(0, 4);
     },

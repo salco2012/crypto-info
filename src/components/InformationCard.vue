@@ -96,7 +96,7 @@ export default {
 <style scoped>
 .border-card {
   box-sizing: border-box;
-  border: solid 3px black;
+  outline: solid 3px black;
 }
 
 .pagination {

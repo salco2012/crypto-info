@@ -43,13 +43,14 @@
       <template v-slot:[`item.Description`]="{ value }">
         <div>
           <v-alert
-          v-if="alertMeaning.includes(value)"
+          v-show="alertMeaning.includes(value)"
             border="top"
             close-text="Close Alert"
             color="#2a8bfa"
             outlined
             class="ma-2 alert"
             max-width="500"
+            transition="scale-transition"
           >
             <span style="font-size: 1em; color: Tomato; cursor:pointer" class="onCloseAlert" @click="selectAlert(value)">
             <i class="far fa-times-circle"></i>
