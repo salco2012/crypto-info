@@ -1746,4 +1746,4 @@ class ci{constructor(t){this.auth=t,this.internalListeners=new Map}getUid(){var 
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */var p=function(){function t(t){this.name=t,this.providers=new Map}return t.prototype.addComponent=function(t){var e=this.getProvider(t.name);if(e.isComponentSet())throw new Error("Component "+t.name+" has already been registered with "+this.name);e.setComponent(t)},t.prototype.addOrOverwriteComponent=function(t){var e=this.getProvider(t.name);e.isComponentSet()&&this.providers.delete(t.name),this.addComponent(t)},t.prototype.getProvider=function(t){if(this.providers.has(t))return this.providers.get(t);var e=new h(t,this);return this.providers.set(t,e),e},t.prototype.getProviders=function(){return Array.from(this.providers.values())},t}()},fff9:function(t,e,n){"use strict";n.d(e,"a",(function(){return s}));var i=n("d4ec"),r=n("bee2"),s=function(){function t(){Object(i["a"])(this,t),this.framework={}}return Object(r["a"])(t,[{key:"init",value:function(t,e){}}]),t}()}}]);
-//# sourceMappingURL=chunk-vendors.5ae194a1.js.map
+//# sourceMappingURL=chunk-vendors.f45f8042.js.map
